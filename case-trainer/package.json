@@ -1,22 +1,57 @@
 {
-    "name": "case-trainer",
-    "version": "1.0.0",
-    "description": "Practice your cases",
-    "main": "main.js",
-    "scripts": {
-        "start": "electron ."
-    },
-    "repository": {
-        "type": "git",
-        "url": "CaseTrainerFinnish"
-    },
-    "author": "Guillaume Jaskula",
-    "license": "ISC",
-    "devDependencies": {
-        "electron": "^19.0.10"
-    },
-    "dependencies": {
-        "fomantic-ui": "^2.8.8",
-        "gulp": "^4.0.2"
+  "name": "case-trainer",
+  "version": "1.0.0",
+  "description": "Practice your cases",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
+  },
+  "repository": {
+    "type": "git",
+    "url": "CaseTrainerFinnish"
+  },
+  "author": "Guillaume Jaskula",
+  "license": "ISC",
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.65",
+    "@electron-forge/maker-deb": "^6.0.0-beta.65",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.65",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.65",
+    "@electron-forge/maker-zip": "^6.0.0-beta.65",
+    "electron": "^19.0.10"
+  },
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.0",
+    "fomantic-ui": "^2.8.8",
+    "gulp": "^4.0.2"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "case_trainer"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
     }
+  }
 }
