@@ -1,0 +1,15 @@
+{
+  "name": "case-trainer",
+  "version": "1.0.0",
+  "description": "Practice your cases",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "CaseTrainerFinnish"
+  },
+  "author": "Guillaume Jaskula",
+  "license": "ISC"
+}
