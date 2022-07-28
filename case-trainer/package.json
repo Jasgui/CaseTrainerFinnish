@@ -11,5 +11,8 @@
     "url": "CaseTrainerFinnish"
   },
   "author": "Guillaume Jaskula",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^19.0.10"
+  }
 }
