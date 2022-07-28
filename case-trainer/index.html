@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com/ 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self' 'unsafe-inline' 'unsafe-eval' https://fonts.googleapis.com/ https://fonts.gstatic.com/ data:; style-src-elem 'self' 'unsafe-inline' 'unsafe-eval' https://fonts.googleapis.com/; script-src-elem 'self' 'unsafe-inline' 'unsafe-eval' https://code.jquery.com/" />
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
+    <title class="ui large header">Hello from Electron renderer!</title>
+</head>
+<style>
+    td {
+        padding: 0px;
+    }
+
+</style>
+
+<body>
+
+
+    <!-- TOP MENU -->
+
+    <div class="ui menu">
+
+        <a class="active item" id='menuHome'>
+            Home
+        </a>
+        <!--
+        <a class="item" id='menuTutorial'>
+            Tutorial
+        </a>
+    -->
+        <a class="item" id='menuTrainer'>
+            Trainer
+        </a>
+        <div class="right menu">
+            <div class="ui pointing dropdown link item" id="helpMenu">
+                <span class="text">Help</span>
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                    <div class="item" id='menuStem'>Stems</div>
+                    <div class="item" id='menuEndings'>Endings</div>
+                    <div class="item" id='menuVocal'>Vocal harmony</div>
+                    <div class="item" id='menuConsonant'>Consonant gradation</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- GRID -->
+
+    <div class="ui grid">
+        <div class="row">
+            <div class="left floated one wide column"></div>
+            <div class="left floated nine wide column">
+                <div class="ui breadcrumb" id="breadcrumbs" style="display: none">
+                    <a class="active section" id='menuIntro'>Intro</a>
+                    <i class="right angle icon divider"></i>
+                    <a class="section" id='menuStep1'>Step 1</a>
+                    <i class="right angle icon divider"></i>
+                    <a class="section" id='menuStep2'>Step 2</a>
+                    <i class="right angle icon divider"></i>
+                    <a class="section" id='menuStep3'>Step 3</a>
+                    <i class="right angle icon divider"></i>
+                    <a class="section" id='menuStep4'>Step 4</a>
+                    <i class="right angle icon divider"></i>
+                    <a class="section" id='menuStep5'>Step 5</a>
+                </div>
+            </div>
+            <div class="right floated five wide column"></div>
+            <div class="right floated one wide column"></div>
+        </div>
+
+        <!-- TUTORIAL GRID -->
+
+        <div class="row">
+            <div class="left floated one wide column"></div>
+            <div class="left floated nine wide column">
+                <div class="ui grid" id='gridTutorial'>
+                    <div class="row">
+                        <div class="left floated sixteen wide column" id='mainText'>
+                            <div class="ui huge header">Welcome!!!</div>
+                            <button class='ui button' id='yesButton' style='display:none'>Yes</button>
+                            <button class='ui button' id='noButton' style='display:none'>No</button>
+                            <button class='ui button' id='remindButton' style='display:none'>Remind me?</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="left floated sixteen wide column">
+                            <button class='ui button' id='nextButton' style="display: none">Next</button>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- TRAINER GRID -->
+
+                <div class="ui grid" id='gridTrainer'>
+
+                    <!-- TEXT ROW -->
+
+                    <div class="row">
+                        <div class="left floated sixteen wide column" id='trainerText'>
+                            <h1></h1>
+                        </div>
+                    </div>
+
+                    <!-- INPUT ROW -->
+
+                    <div class="row">
+                        <div class="left floated sixteen wide column">
+                            <div class="ui action huge input">
+                                <input type='text' placeholder="type here..." id="inputField" style='display:none'>
+                                <button class='ui teal button' id="trainerButton" style='display:none'>go!</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- EXPLANATIONS ROW -->
+
+                    <div class="row">
+                        <div class="left floated sixteen wide column">
+                            <div class="left floated sixteen wide column" id='explanations'>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="left floated sixteen wide column">
+
+                            <div class="ui styled accordion" id='accordion' style='display:none'>
+
+                                <!-- WORD -->
+
+
+
+                                <div class="title" id="test">
+                                    <i class="dropdown icon"></i>
+                                    <span>Finding the right Finnish word</span>
+                                    <h5 class="ui right floated header" id='stepAnswer1' style="display: none">porras</h5>
+                                </div>
+                                <div class="content" id="insertButton">
+                                    <div>
+                                        <section id='stepHide1'>
+                                            <span id='stepPrompt1'></span>
+                                            <br /><br />
+                                            <div class="ui input"><input type="text" placeholder="Finnish word" id='stepInput1'></div>
+                                            <button class="ui teal icon button" id='stepConfirmButton1'><i class="check icon"></i></button>
+                                            <br /><br />
+                                        </section>
+                                    </div>
+                                    <p id='stepExplanation1' style="display: none"></p>
+                                    <div>
+                                        <section id='stepHide1a'>
+                                            <button class="ui teal basic button" id='stepHelpButton1'>I don't know the word</button>
+                                            <br /><br />
+                                            <div>
+                                                <br />
+                                            </div>
+                                        </section>
+                                    </div>
+
+                                </div>
+
+
+
+                                <!-- CASE -->
+
+
+                                <div class="title">
+                                    <i class="dropdown icon"></i>
+                                    <span>Step 2 - Finding the right case</span>
+                                    <h5 class="ui right floated header" id='stepAnswer2' style="display: none">adessive</h5>
+                                </div>
+                                <div class="content">
+                                    <div>
+                                        <section id='stepHide2'><span id='stepPrompt2'></span>
+
+                                            <select class="ui dropdown" id="stepInput2">
+                                                <option value="">Choose a case</option>
+                                                <option value="nominative">nominative</option>
+                                                <option value="accusative">accusative</option>
+                                                <option value="genitive">genitive</option>
+                                                <option value="partitive">partitive</option>
+                                                <option value="inessive">inessive</option>
+                                                <option value="elative">elative</option>
+                                                <option value="illative">illative</option>
+                                                <option value="adessive">adessive</option>
+                                                <option value="ablative">ablative</option>
+                                                <option value="allative">allative</option>
+                                                <option value="essive">essive</option>
+                                                <option value="translative">translative</option>
+                                            </select>
+                                            <button class="ui teal icon button" id='stepConfirmButton2'><i class="check icon"></i></button>
+
+
+                                            <br /><br />
+
+
+                                        </section>
+                                    </div>
+                                    <p id='stepExplanation2'></p>
+                                    <div>
+                                        <section id='stepHide2a'>
+                                            <button class="ui teal basic button" id='stepHelpButton2'>Help me with the cases</button>
+                                            <br /><br />
+                                            <div><button class="ui right floated icon button" id='stepReveal2'><i class="eye slash icon"></i></button>
+                                                <br />
+                                            </div>
+                                        </section>
+                                    </div>
+
+                                </div>
+
+
+                                <!-- STEP 1 - STEMS -->
+
+
+                                <div class="title">
+                                    <i class="dropdown icon"></i>
+                                    <span>Step 1 - Finding the stems of the word</span>
+                                    <h5 class="ui right floated header" id='stepAnswer3' style="display: none">portaa- | porras-</h5>
+                                </div>
+                                <div class="content">
+                                    <div>
+                                        <section id='stepHide3'>
+                                            <span id='stepPrompt3'>...</span>
+                                            <div class="ui input"><input type="text" placeholder="stem 1" id='stepInput3a'></div>
+                                            <div class="ui input"><input type="text" placeholder="stem 2" id='stepInput3b'></div>
+                                            <button class="ui teal icon button" id='stepConfirmButton3'><i class="check icon"></i></button>
+                                            <br /><br />
+                                        </section>
+                                    </div>
+                                    <p id='stepExplanation3'></p>
+                                    <div>
+                                        <section id='stepHide3a'>
+                                            <button class="ui teal basic button" id='stepHelpButton3'>Help with the stems</button>
+                                            <br /><br />
+
+
+                                            <div><button class="ui right floated icon button" id='stepReveal3'><i class="eye slash icon"></i></button>
+                                                <br />
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+
+                                <!-- STEP 2 - RIGHT STEM -->
+
+
+
+                                <div class="title">
+                                    <i class="dropdown icon"></i>
+                                    <span>Step 2 - Choosing the right stem</span>
+                                    <h5 class="ui right floated header" id='stepAnswer4' style="display: none">portaa-</h5>
+                                </div>
+                                <div class="content">
+                                    <div>
+                                        <section id='stepHide4'>
+                                            <span id='stepPrompt4'></span>
+                                            <div class="ui input"><input type="text" placeholder="stem" id='stepInput4'></div>
+                                            <button class="ui teal icon button" id='stepConfirmButton4'><i class="check icon"></i></button>
+                                            <br /><br />
+                                        </section>
+                                    </div>
+                                    <p id='stepExplanation4'></p>
+                                    <div>
+                                        <section id='stepHide4a'>
+                                            <button class="ui teal basic button" id='stepHelpButton4'>Help with the stems</button>
+                                            <br /><br />
+                                            <div><button class="ui right floated icon button" id='stepReveal4'><i class="eye slash icon"></i></button>
+                                                <br />
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+
+
+
+
+
+                                <!-- STEP 3 - ENDING -->
+
+
+
+                                <div class="title">
+                                    <i class="dropdown icon"></i>
+                                    <span>Step 3 - Finding the right ending</span>
+                                    <h5 class="ui right floated header" id='stepAnswer5' style="display: none">-lla/llä</h5>
+                                </div>
+                                <div class="content">
+                                    <div>
+                                        <section id='stepHide5'><span id='stepPrompt5'></span>
+
+                                            <select class="ui dropdown" id="stepInput5">
+                                                <option value="">Choose an ending</option>
+                                                <option value="-">-</option>
+                                                <option value="-n">-n</option>
+                                                <option value="-a/ä">-a/ä</option>
+                                                <option value="-ta/tä">-ta/tä</option>
+                                                <option value="-tta/ttä">-tta/ttä</option>
+                                                <option value="-ssa/ssä">-ssa/ssä</option>
+                                                <option value="-sta/stä">-sta/stä</option>
+                                                <option value="-Vn">-Vn</option>
+                                                <option value="-hVn">-hVn</option>
+                                                <option value="-seen">-seen</option>
+                                                <option value="-lla/llä">-lla/llä</option>
+                                                <option value="-lta/ltä">-lta/ltä</option>
+                                                <option value="-lle">-lle</option>
+                                                <option value="-na/nä">-na/nä</option>
+                                                <option value="-ksi">-ksi</option>
+                                            </select>
+                                            <button class="ui teal icon button" id='stepConfirmButton5'><i class="check icon"></i></button>
+
+
+                                            <br /><br />
+
+
+                                        </section>
+                                    </div>
+                                    <p id='stepExplanation5'></p>
+                                    <div>
+                                        <section id='stepHide5a'>
+                                            <button class="ui teal basic button" id='stepHelpButton5'>Help me with the cases</button>
+                                            <br /><br />
+                                            <div><button class="ui right floated icon button" id='stepReveal5'><i class="eye slash icon"></i></button>
+                                                <br />
+                                            </div>
+                                        </section>
+                                    </div>
+
+                                </div>
+
+                                <!-- STEP 4 - VOCAL HARMONY -->
+
+
+                                <div class="title">
+                                    <i class="dropdown icon"></i>
+                                    <span>Step 4 - Choosing the right version of the ending</span>
+                                    <h5 class="ui right floated header" id='stepAnswer6' style="display: none">-lla</h5>
+                                </div>
+                                <div class="content">
+                                    <div>
+                                        <section id='stepHide6'>
+                                            <span id='stepPrompt6'></span>
+                                            <div class="ui input"><input type="text" placeholder="ending" id='stepInput6'></div>
+                                            <button class="ui teal icon button" id='stepConfirmButton6'><i class="check icon"></i></button>
+                                            <br /><br />
+                                        </section>
+                                    </div>
+                                    <p id='stepExplanation6'></p>
+                                    <div>
+                                        <section id='stepHide6a'>
+                                            <button class="ui teal basic button" id='stepHelpButton6'>Help with the stems</button>
+                                            <br /><br />
+                                            <div><button class="ui right floated icon button" id='stepReveal6'><i class="eye slash icon"></i></button>
+                                                <br />
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+
+
+
+
+                                <!-- STEP 5 - CONSONANT GRADATION -->
+
+
+                                <div class="title">
+                                    <i class="dropdown icon"></i>
+                                    <span>Step 5a - Finding relevant consonant gradation</span>
+                                    <h5 class="ui right floated header" id='stepAnswer7' style="display: none">tt / t</h5>
+                                </div>
+                                <div class="content">
+                                    <div>
+                                        <section id='stepHide7'><span id='stepPrompt7'></span>
+
+                                            <select class="ui dropdown" id="stepInput7">
+                                                <option value="">Gradation</option>
+                                                <option value="none">none</option>
+                                                <option value="pp → p">pp → p</option>
+                                                <option value="p → pp">p → pp</option>
+                                                <option value="tt → t">tt → t</option>
+                                                <option value="t → tt">t → tt</option>
+                                                <option value="kk → k">kk → k</option>
+                                                <option value="k → kk">k → kk</option>
+                                                <option value="p → v">p → v</option>
+                                                <option value="v → p">v → p</option>
+                                                <option value="t → d">t → d</option>
+                                                <option value="d → t">d → t</option>
+                                                <option value="k → ∅">k → ∅</option>
+                                                <option value="∅ → k">∅ → k</option>
+                                                <option value="k → v">k → v</option>
+                                                <option value="v → k">v → k</option>
+                                                <option value="mp → mm">mp → mm</option>
+                                                <option value="mm → mp">mm → mp</option>
+                                                <option value="nt → nn">nt → nn</option>
+                                                <option value="nn → nt">nn → nt</option>
+                                                <option value="nk → ng">nk → ng</option>
+                                                <option value="ng → nk">ng → nk</option>
+                                                <option value="lt → ll">lt → ll</option>
+                                                <option value="ll → lt">ll → lt</option>
+                                                <option value="rt → rr">rt → rr</option>
+                                                <option value="rr → rt">rt → rt</option>
+                                                <option value="ht → hd">ht → hd</option>
+                                                <option value="hd → ht">hd → ht</option>
+                                                <option value="lk → lj">lk → lj</option>
+                                                <option value="lj → lk">lj → lk</option>
+                                                <option value="rk → rj">rk → rj</option>
+                                                <option value="rj → rk">rj → rk</option>
+                                                <option value="other">other</option>
+                                            </select>
+                                            <button class="ui teal icon button" id='stepConfirmButton7'><i class="check icon"></i></button>
+
+
+                                            <br /><br />
+
+
+                                        </section>
+                                    </div>
+                                    <p id='stepExplanation7'></p>
+                                    <div>
+                                        <section id='stepHide7a'>
+                                            <button class="ui teal basic button" id='stepHelpButton7'>Help me with the gradation</button>
+                                            <br /><br />
+                                            <div><button class="ui right floated icon button" id='stepReveal7'><i class="eye slash icon"></i></button>
+                                                <br />
+                                            </div>
+                                        </section>
+                                    </div>
+
+                                </div>
+
+
+
+
+
+
+
+
+
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+
+            <!-- HELPER GRID -->
+
+            <div class="right floated five wide column" id='helperText'>
+
+                <!-- CASE MEANING TABLE -->
+
+
+                <table class="ui compact striped table" id="tableCaseMeaning" style="display: none">
+                    <thead>
+                        <tr>
+                            <th>Case</th>
+                            <th>Meaning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr id='ending-nominative'>
+                            <td data-label="Case">nominative</td>
+                            <td data-label="Ending">Subject, who does the action</td>
+                        </tr>
+                        <tr id='ending-accusative'>
+                            <td data-label="Case">accusative</td>
+                            <td data-label="Ending">(total) object of the verb</td>
+                        </tr>
+                        <tr id='ending-genitive'>
+                            <td data-label="Case">genitive</td>
+                            <td data-label="Ending">of ... / ...'s</td>
+                        </tr>
+                        <tr id='ending-partitive'>
+                            <td data-label="Case">partitive</td>
+                            <td data-label="Ending">some ... / (partial) object of the verb</td>
+                        </tr>
+                        <tr id='ending-inessive'>
+                            <td data-label="Case">inessive</td>
+                            <td data-label="Ending">inside ...</td>
+                        </tr>
+                        <tr id='ending-elative'>
+                            <td data-label="Case">elative</td>
+                            <td data-label="Ending">from (inside) ...</td>
+                        </tr>
+                        <tr id='ending-illative'>
+                            <td data-label="Case">illative</td>
+                            <td data-label="Ending">into ...</td>
+                        </tr>
+                        <tr id='ending-adessive'>
+                            <td data-label="Case">adessive</td>
+                            <td data-label="Ending">on ... / about ...</td>
+                        </tr>
+                        <tr id='ending-ablative'>
+                            <td data-label="Case">ablative</td>
+                            <td data-label="Ending">from (on) ... / off ...</td>
+                        </tr>
+                        <tr id='ending-allative'>
+                            <td data-label="Case">allative</td>
+                            <td data-label="Ending">onto ... / to (someone)</td>
+                        </tr>
+                        <tr id='ending-essive'>
+                            <td data-label="Case">essive</td>
+                            <td data-label="Ending">as ...</td>
+                        </tr>
+                        <tr id='ending-translative'>
+                            <td data-label="Case">translative</td>
+                            <td data-label="Ending">(changing) into ... / becoming ...</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+                <!-- STEM TABLE -->
+
+
+                <table class="ui compact striped table" id="tableStems" style="display: none">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Ends in:</th>
+                            <th>Stem 1</th>
+                            <th>Stem 2 (partitive)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr id='type1'>
+                            <td data-label="Type">1</td>
+                            <td data-label="Name">-e<br />liik<b>e</b></td>
+                            <td data-label="Age">-ee<br />lii<i>kk</i><b>ee</b>-</td>
+                            <td data-label="Job">-e<br />liik<b>e</b>-</td>
+                        </tr>
+                        <tr id='type2'>
+                            <td data-label="Type">2</td>
+                            <td data-label="Name">-i<br />tunt<b>i</b></td>
+                            <td data-label="Age">-i<br />tunt<b>i</b>-</td>
+                            <td data-label="Job">-i<br />tunt<b>i</b>-</td>
+                        </tr>
+                        <tr id='type3'>
+                            <td data-label="Type">3</td>
+                            <td data-label="Name">-i<br />kiv<b>i</b></td>
+                            <td data-label="Age">-e<br />kiv<b>e</b>-</td>
+                            <td data-label="Job">-e<br />kiv<b>e</b>-</td>
+                        </tr>
+                        <tr id='type4'>
+                            <td data-label="Type">4</td>
+                            <td data-label="Name">-i<br />kiel<b>i</b></td>
+                            <td data-label="Age">-e<br />kiel<b>e</b>-</td>
+                            <td data-label="Job">-<br />kiel-</td>
+                        </tr>
+                        <tr id='type5'>
+                            <td data-label="Type">5</td>
+                            <td data-label="Name">-vowel<br />tal<b>o</b></td>
+                            <td data-label="Age">-vowel<br />tal<b>o</b>-</td>
+                            <td data-label="Job">-vowel<br />tal<b>o</b>-</td>
+                        </tr>
+                        <tr id='type6'>
+                            <td data-label="Type">6</td>
+                            <td data-label="Name">-(s)i<br />ve<b>si</b></td>
+                            <td data-label="Age">-te<br />ve<b>te</b>-</td>
+                            <td data-label="Job">-t<br />ve<b>t</b>-</td>
+                        </tr>
+                        <tr id='type7'>
+                            <td data-label="Type">7</td>
+                            <td data-label="Name">-nen<br />nai<b>nen</b></td>
+                            <td data-label="Age">-se<br />nai<b>se</b>-</td>
+                            <td data-label="Job">-s<br />nai<b>s</b>-</td>
+                        </tr>
+                        <tr id='type8'>
+                            <td data-label="Type">8</td>
+                            <td data-label="Name">-as/äs/is<br />porr<b>as</b></td>
+                            <td data-label="Age">-aa<br />po<i>rt</i><b>aa</b>-</td>
+                            <td data-label="Job">-as<br />porr<b>as</b>-</td>
+                        </tr>
+                        <tr id='type9'>
+                            <td data-label="Type">9</td>
+                            <td data-label="Name">-us/ys<br />ajat<b>us</b></td>
+                            <td data-label="Age">-ukse<br />ajat<b>ukse</b>-</td>
+                            <td data-label="Job">-us<br />ajat<b>us</b>-</td>
+                        </tr>
+                        <tr id='type10'>
+                            <td data-label="Type">10</td>
+                            <td data-label="Name">-vowel+vowel+s<br />hyv<b>yys</b></td>
+                            <td data-label="Age">-te<br />hyvyy<b>te</b>-</td>
+                            <td data-label="Job">-t<br />hyvyy<b>t</b>-</td>
+                        </tr>
+                        <tr id='type11'>
+                            <td data-label="Type">11</td>
+                            <td data-label="Name">-in<br />yd<b>in</b></td>
+                            <td data-label="Age">-ime<br />y<i>t</i><b>ime</b>-</td>
+                            <td data-label="Job">-in<br />yd<b>in</b>-</td>
+                        </tr>
+                        <tr id='type12'>
+                            <td data-label="Type">12</td>
+                            <td data-label="Name">-ton/tön<br />työ<b>tön</b></td>
+                            <td data-label="Age">-ttoma/ttömä<br />työ<b>ttömä</b>-</td>
+                            <td data-label="Job">-ton/tön<br />työ<b>tön</b>-</td>
+                        </tr>
+                        <tr id='type13'>
+                            <td data-label="Type">13</td>
+                            <td data-label="Name">-ut/yt<br />ol<b>ut</b></td>
+                            <td data-label="Age">-ue<br />ol<b>ue</b>-</td>
+                            <td data-label="Job">-ut<br />ol<b>ut</b>-</td>
+                        </tr>
+                        <tr id='type14'>
+                            <td data-label="Type">14</td>
+                            <td data-label="Name">other cons.<br />aske<b>l</b></td>
+                            <td data-label="Age">-e<br />askel<b>e</b>-</td>
+                            <td data-label="Job">-<br />askel-</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- ENDINGS TABLE -->
+
+
+                <table class="ui compact striped table" id="tableCaseEndings" style="display: none">
+                    <thead>
+                        <tr>
+                            <th>Case</th>
+                            <th>Ending</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr id='ending-nominative'>
+                            <td data-label="Case">nominative</td>
+                            <td data-label="Ending">-</td>
+                        </tr>
+                        <tr id='ending-accusative'>
+                            <td data-label="Case">accusative</td>
+                            <td data-label="Ending">-n</td>
+                        </tr>
+                        <tr id='ending-genitive'>
+                            <td data-label="Case">genitive</td>
+                            <td data-label="Ending">-n</td>
+                        </tr>
+                        <tr id='ending-partitive'>
+                            <td data-label="Case">partitive</td>
+                            <td data-label="Ending">-a/ä | -ta/tä | -tta/ttä</td>
+                        </tr>
+                        <tr id='ending-inessive'>
+                            <td data-label="Case">inessive</td>
+                            <td data-label="Ending">-ssa/ssä</td>
+                        </tr>
+                        <tr id='ending-elative'>
+                            <td data-label="Case">elative</td>
+                            <td data-label="Ending">-sta/stä</td>
+                        </tr>
+                        <tr id='ending-illative'>
+                            <td data-label="Case">illative</td>
+                            <td data-label="Ending">-vowel+n | -h+vowel+n | -seen</td>
+                        </tr>
+                        <tr id='ending-adessive'>
+                            <td data-label="Case">adessive</td>
+                            <td data-label="Ending">-lla/llä</td>
+                        </tr>
+                        <tr id='ending-ablative'>
+                            <td data-label="Case">ablative</td>
+                            <td data-label="Ending">-lta/ltä</td>
+                        </tr>
+                        <tr id='ending-allative'>
+                            <td data-label="Case">allative</td>
+                            <td data-label="Ending">-lle</td>
+                        </tr>
+                        <tr id='ending-essive'>
+                            <td data-label="Case">essive</td>
+                            <td data-label="Ending">-na/nä</td>
+                        </tr>
+                        <tr id='ending-translative'>
+                            <td data-label="Case">translative</td>
+                            <td data-label="Ending">-ksi</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+                <!-- PARTITIVE ENDINGS -->
+
+
+                <table class="ui compact striped table" id="tablePartitive" style="display: none">
+                    <thead>
+                        <tr>
+                            <th>Condition</th>
+                            <th>Ending</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr id=''>
+                            <td data-label="Condition">stem in -CV</td>
+                            <td data-label="Ending">-a/ä</td>
+                        </tr>
+                        <tr id=''>
+                            <td data-label="Condition">stem in -ea/eä</td>
+                            <td data-label="Ending">-a/ä</td>
+                        </tr>
+                        <tr id=''>
+                            <td data-label="Condition">stem in -ia/iä</td>
+                            <td data-label="Ending">-a/ä</td>
+                        </tr>
+                        <tr id=''>
+                            <td data-label="Condition">stem in -ua/yä</td>
+                            <td data-label="Ending">-a/ä</td>
+                        </tr>
+                        <tr id=''>
+                            <td data-label="Condition">stem in -VV</td>
+                            <td data-label="Ending">-ta/tä</td>
+                        </tr>
+                        <tr id=''>
+                            <td data-label="Condition">stem in -C</td>
+                            <td data-label="Ending">-ta/tä</td>
+                        </tr>
+                        <tr id=''>
+                            <td data-label="Condition">nominative in -e</td>
+                            <td data-label="Ending">-tta/ttä</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+                <!-- ILLATIVE ENDINGS -->
+
+
+                <table class="ui compact striped table" id="tableIllative" style="display: none">
+                    <thead>
+                        <tr>
+                            <th>Condition</th>
+                            <th>Ending</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr id=''>
+                            <td data-label="Condition">stem in -vowel</td>
+                            <td data-label="Ending">-vowel + n (same vowel as the last in the word)</td>
+                        </tr>
+                        <tr id=''>
+                            <td data-label="Condition">stem is one syllable</td>
+                            <td data-label="Ending">-h + vowel + n (same vowel as the last in the word)</td>
+                        </tr>
+                        <tr id=''>
+                            <td data-label="Condition">stem in -vowel + vowel</td>
+                            <td data-label="Ending">-seen</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+                <!-- VOWEL HARMONY TABLE -->
+
+                <table class="ui compact table" id="tableVocal1" style="display: none">
+                    <thead>
+                        <tr>
+                            <th class="center aligned">Back vowels</th>
+                            <th class="center aligned">Front vowels</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td data-label="Back vowels" class="center aligned">a</td>
+                            <td data-label="Front vowels" class="center aligned">ä</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Back vowels" class="center aligned">o</td>
+                            <td data-label="Front vowels" class="center aligned">ö</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Back vowels" class="center aligned">u</td>
+                            <td data-label="Front vowels" class="center aligned">y</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="ui compact table" id="tableVocal2" style="display: none">
+                    <thead>
+                        <tr>
+                            <th class="center aligned">Neutral vowels</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td data-label="Neutral vowels" class="center aligned">e</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Neutral vowels" class="center aligned">i</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- CONSONANT GRADATION TABLE -->
+
+
+                <table class="ui compact table" id="tableCons" style="display: none">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th class="center aligned">Strong grade / open syllable</th>
+                            <th class="center aligned">Weak grade / closed syllable</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td data-label="Type" class="center aligned">1</td>
+                            <td data-label="Strong grade / open syllable" class="center aligned">pp</td>
+                            <td data-label="Weak grade / closed syllable" class="center aligned">p</td>
+                        </tr>
+                        <tr id="rowTT">
+                            <td data-label="Type" class="center aligned">2</td>
+                            <td data-label="Strong grade / open syllable" class="center aligned">tt</td>
+                            <td data-label="Weak grade / closed syllable" class="center aligned">t</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Type" class="center aligned">3</td>
+                            <td data-label="Strong grade / open syllable" class="center aligned">kk</td>
+                            <td data-label="Weak grade / closed syllable" class="center aligned">k</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Type" class="center aligned">4</td>
+                            <td data-label="Strong grade / open syllable" class="center aligned">p</td>
+                            <td data-label="Weak grade / closed syllable" class="center aligned">v</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Type" class="center aligned">5</td>
+                            <td data-label="Strong grade / open syllable" class="center aligned">t</td>
+                            <td data-label="Weak grade / closed syllable" class="center aligned">d</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Type" class="center aligned">6</td>
+                            <td data-label="Strong grade / open syllable" class="center aligned">k</td>
+                            <td data-label="Weak grade / closed syllable" class="center aligned">∅</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Type" class="center aligned">7</td>
+                            <td data-label="Strong grade / open syllable" class="center aligned">uku / yky</td>
+                            <td data-label="Weak grade / closed syllable" class="center aligned">uvu / yvy</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Type" class="center aligned">8</td>
+                            <td data-label="Strong grade / open syllable" class="center aligned">mp</td>
+                            <td data-label="Weak grade / closed syllable" class="center aligned">mm</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Type" class="center aligned">9</td>
+                            <td data-label="Strong grade / open syllable" class="center aligned">nt</td>
+                            <td data-label="Weak grade / closed syllable" class="center aligned">nn</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Type" class="center aligned">10</td>
+                            <td data-label="Strong grade / open syllable" class="center aligned">nk</td>
+                            <td data-label="Weak grade / closed syllable" class="center aligned">ng</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Type" class="center aligned">11</td>
+                            <td data-label="Strong grade / open syllable" class="center aligned">lt</td>
+                            <td data-label="Weak grade / closed syllable" class="center aligned">ll</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Type" class="center aligned">12</td>
+                            <td data-label="Strong grade / open syllable" class="center aligned">rt</td>
+                            <td data-label="Weak grade / closed syllable" class="center aligned">rr</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Type" class="center aligned">13</td>
+                            <td data-label="Strong grade / open syllable" class="center aligned">ht</td>
+                            <td data-label="Weak grade / closed syllable" class="center aligned">hd</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Type" class="center aligned">14</td>
+                            <td data-label="Strong grade / open syllable" class="center aligned">lk + e/i</td>
+                            <td data-label="Weak grade / closed syllable" class="center aligned">lj</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Type" class="center aligned">15</td>
+                            <td data-label="Strong grade / open syllable" class="center aligned">rk + e/i</td>
+                            <td data-label="Weak grade / closed syllable" class="center aligned">rj</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+
+
+
+            </div>
+            <div class="right floated one wide column"></div>
+        </div>
+        <div class="row">
+            <div class="left floated one wide column"></div>
+            <div class="left floated nine wide column">
+                <button class='ui button' id='backButton' style="display: none">Back</button>
+            </div>
+            <div class="right floated five wide column"></div>
+            <div class="right floated one wide column"></div>
+        </div>
+    </div>
+
+
+    <!-- MODAL -->
+
+    <div class="ui basic modal">
+        <div class="ui icon header">
+            <i class="thumbs up icon"></i>
+            Congratulations<br /><br />You found the right word!
+        </div>
+    </div>
+
+
+</body>
+<link rel="stylesheet" type="text/css" href="Semantic-UI-CSS-master/semantic.min.css">
+<script src="data.json"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script src="Semantic-UI-CSS-master/semantic.min.js"></script>
+
+<script src="./renderer.js"></script>
+
+</html>
