@@ -72,28 +72,9 @@
             <div class="right floated one wide column"></div>
         </div>
 
-        <!-- TUTORIAL GRID -->
-
         <div class="row">
             <div class="left floated one wide column"></div>
             <div class="left floated nine wide column">
-                <div class="ui grid" id='gridTutorial'>
-                    <div class="row">
-                        <div class="left floated sixteen wide column" id='mainText'>
-                            <div class="ui huge header">Welcome!!!</div>
-                            <button class='ui button' id='yesButton' style='display:none'>Yes</button>
-                            <button class='ui button' id='noButton' style='display:none'>No</button>
-                            <button class='ui button' id='remindButton' style='display:none'>Remind me?</button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="left floated sixteen wide column">
-                            <button class='ui button' id='nextButton' style="display: none">Next</button>
-                        </div>
-                    </div>
-
-                </div>
-
 
                 <!-- TRAINER GRID -->
 
@@ -914,10 +895,12 @@
 
     <!-- MODAL -->
 
-    <div class="ui basic modal">
+    <div class="ui basic modal" id="correctModal">
         <div class="ui icon header">
             <i class="thumbs up icon"></i>
-            Congratulations<br /><br />You found the right word!
+            Congratulations<br /><br />You found the right answer!<br /><br /><br />
+            <button class='ui teal button' id='modalButton'>Next one!</button>
+
         </div>
     </div>
 
