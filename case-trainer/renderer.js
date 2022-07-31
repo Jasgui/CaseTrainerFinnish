@@ -210,6 +210,7 @@ function stepConfirmButton1_clicked() {
 
     if ($('#stepInput1').val() == dataWordFinnish) {
         $('#stepHide1').hide();
+        $('#stepHide1a').hide();
         $('#stepAnswer1').show();
         $('#stepExplanation1').show();
         $('#stepExplanation1').html("You're absolutely right! The Finnish word that means <b><i>" + dataWordEnglish + "</i></b> is <b>" + dataWordFinnish + "</b><br/><br/>You can continue with the next steps.");
@@ -218,6 +219,7 @@ function stepConfirmButton1_clicked() {
     } else {
 
         $('#stepHide1').hide();
+        $('#stepHide1a').hide();
         $('#stepAnswer1').show();
         $('#stepExplanation1').show();
         $('#stepExplanation1').html("Oops, that's not the word I was expecting. I was thinking of <b>" + dataWordFinnish + "</b>. We'll use this one, ok?<br/><br/> You can continue with the next steps.");
@@ -451,37 +453,40 @@ $('#stepHelpButton1').click(function () {
     $('#stepHide1').hide();
     $('#stepAnswer1').show();
     $('#stepHide1a').hide();
+    $('#stepExplanation1').show();
     $('#stepExplanation1').html("The Finnish word that means <b><i>" + dataWordEnglish + "</i></b> is <b>" + dataWordFinnish + "</b><br/><br/>You can continue with the next steps.");
 
 });
 
 $('#stepHelpButton2').click(function () {
 
-    $('#stepHide2').hide();
     hideAllTables();
     $('#tableCaseMeaning').show();
-    $('#stepExplanation1').html("I have opened a list of cases with their basic meanings on the right. Try to choose the right one with the help of the table.<br/><br/> If you're still having issues, the reveal <i class='eye slash icon'></i> button is there for you.");
-
+    $('#stepExplanation2').html("I have opened a list of cases with their basic meanings on the right. Try to choose the right one with the help of the table.<br/><br/> If you're still having issues, the reveal <i class='eye slash icon'></i> button is there for you.");
+    $('#stepHelpButton2').hide();
 });
 
 $('#stepHelpButton3').click(function () {
 
-    if ($('#stepHelpButton3').name == "status 2") {
+    console.log($('#stepHelpButton3').name);
+
+    if ($('#stepHelpButton3').attr('name') == "status 2") {
 
         $('#stepExplanation3').html("Because <i>" + dataWordFinnishHighlighted + "</i> " + dataTypeReason + ", it belongs to group " + dataType + ". I have highlighted it in the table. Does that help?)");
         document.getElementById("type" + dataType).className = "warning";
         $('#stepHelpButton3').html("I still need help");
-        $('#stepHelpButton3').name = "status 3";
+        $('#stepHelpButton3').attr('name', "status 3");
 
-    } else if (stepHelpButton3.name == "status 3") {
+    } else if ($('#stepHelpButton3').attr('name') == "status 3") {
 
         $('#stepExplanation3').html("So for this type, " + dataTypeExplanation + ".<br/><br/>Try again typing the stems or use the reveal <i class='eye slash icon'></i> button.");
         $('#stepHelpButton3').hide();
 
     } else {
+
         $('#stepExplanation3').html("On the right you can have a look at the different types of words and try to find the one that matches here. Then, try to type the stems again.<br/><br/>If you need more help, press the help button again.");
         $('#stepHelpButton3').html("I need more help");
-        $('#stepHelpButton3').name = "status 2";
+        $('#stepHelpButton3').attr('name', "status 2");
         hideAllTables();
         $('#tableStems').show();
 
@@ -506,6 +511,8 @@ $('#stepHelpButton4').click(function () {
 
 $('#stepHelpButton5').click(function () {
 
+    console.log(dataCase);
+
     if (dataCase == "partitive") {
         partitiveHelp();
     } else if (dataCase == "illative") {
@@ -520,32 +527,34 @@ $('#stepHelpButton6').click(function () {
     hideAllTables();
     $('#tableVocal1').show();
     $('#tableVocal2').show();
-    $('#stepExplanation1').html("Look at the <i>vowel harmony</i> table and remember to use the right vowel for the ending.");
+    $('#stepExplanation6').show();
+    $('#stepExplanation6').html("Look at the <i>vowel harmony</i> table and remember to use the right vowel for the ending.");
     $('#stepHelpButton6').hide();
 
 });
 
 $('#stepHelpButton7').click(function () {
 
-    if ($('#stepHelpButton7').name == "status 2") {
+
+    if ($('#stepHelpButton7').attr('name') == "status 2") {
+
 
         $('#stepExplanation7').html("First, check the status of the last syllable of the stem. Does it goes open > closed, closed > open or remains the same?<br/><br/>If it changes, the consonant(s) right before that syllable change from one column to the other in the same order.");
         $('#stepHelpButton7').html("I'm still not sure");
-        $('#stepHelpButton7').name = "status 3";
+        $('#stepHelpButton7').attr('name', "status 3");
 
-    } else if ($('#stepHelpButton7').name == "status 3") {
+    } else if ($('#stepHelpButton7').attr('name') == "status 3") {
 
-        $('#stepExplanation7').html("Ok, so the stem is <i>" + $('#stepAnswer4').html() + "</i> and the stem+ending is <i>" + $('#stepAnswer4').html().slice(0, -1) + $('#stepAnswer6').html().slice(1) + "</i>.<br/><br/>We cut them in syllables:<br/><br/>" + dataStemCut + " and " + dataBeforeGradationCut + "<br/><br/>Then we look at the last syllable from the stem:<br/><br/> " + dataStemCutUnderlined + " and " + dataBeforeGradationCutUnderlined + "<br/><br/>The first one is <b>" + dataStemSyllable + "</b> and is <i>" + dataStemSyllableStatus + "</i> and the second one is <b>" + dataBeforeGradationSyllable + "</b> and is <i>" + dataBeforeGradationSyllableStatus + "</i>.<br/><br/>So from Stem > Word the syllable goes <i>" + dataStemSyllableStatus + " > " + dataBeforeGradationSyllableStatus + "</i><br/><br/>The consonant(s) right before that syllable is <b>" + dataConsonantBefore + "</b> and it needs to also change from <i>" + dataStemSyllableStatus + " > " + dataBeforeGradationSyllableStatus + "</i><br/><br/>In the table you can see that a <b>" + dataConsonantBefore + "</b> in an <i>" + dataStemSyllableStatus + " syllable</i> corresponds to a <b>" + dataConsonantAfter + "</b> in a <i>" + dataBeforeGradationSyllableStatus + " syllable</i><br/><br/>So in this case you need to apply <b>" + dataGradation + "</b>");
-
+        $('#stepExplanation7').html("Ok, so the stem is <i>" + $('#stepAnswer4').html() + "</i> and the stem+ending is *<i>" + $('#stepAnswer4').html().slice(0, -1) + $('#stepAnswer6').html().slice(1) + "</i>.<br/><br/>We cut them in syllables:<br/><br/>" + dataStemCut + " and " + dataBeforeGradationCut + "<br/><br/>Then we look at the last syllable from the stem:<br/><br/> " + dataStemCutUnderlined + " and " + dataBeforeGradationCutUnderlined + "<br/><br/>The first one is <b>" + dataStemSyllable + "</b> and is <i>" + dataStemSyllableStatus + "</i> and the second one is <b>" + dataBeforeGradationSyllable + "</b> and is <i>" + dataBeforeGradationSyllableStatus + "</i>.<br/><br/>So from Stem > Word the syllable goes <i>" + dataStemSyllableStatus + " > " + dataBeforeGradationSyllableStatus + "</i><br/><br/>The consonant(s) right before that syllable is <b>" + dataConsonantBefore + "</b> and it needs to also change from <i>" + dataStemSyllableStatus + " > " + dataBeforeGradationSyllableStatus + "</i><br/><br/>In the table you can see that a <b>" + dataConsonantBefore + "</b> in an <i>" + dataStemSyllableStatus + " syllable</i> corresponds to a <b>" + dataConsonantAfter + "</b> in a <i>" + dataBeforeGradationSyllableStatus + " syllable</i><br/><br/>So in this case you need to apply <b>" + dataGradation + "</b>");
         $('#stepHelpButton7').hide();
 
     } else {
 
         hideAllTables();
-        $('tableCons').show();
-        $('stepExplanation7').html("The table on the right lists the different types of consonant gradation. Doesn't that help you?");
-        $('stepHelpButton7').name = "status 2";
-        $('stepHelpButton7').html("I need more help!");
+        $('#tableCons').show();
+        $('#stepExplanation7').html("The table on the right lists the different types of consonant gradation. Doesn't that help you?");
+        $('#stepHelpButton7').attr('name', "status 2");
+        $('#stepHelpButton7').html("I need more help!");
 
     };
 
@@ -644,21 +653,21 @@ $('#stepReveal7').click(function () {
 
 function partitiveHelp() {
 
-    if ($('#stepHelpButton5').name == "status 2") {
+    if ($('#stepHelpButton5').attr('name') == "status 2") {
 
         document.getElementById("ending-" + dataCase).className = "warning";
         $('#stepExplanation5').html("The row with the right ending for the <i>" + dataCase + "</i> is highlighted is the table. If you need more help, use the help button again.");
-        $('stepHelpButton5').name = "status 3";
+        $('#stepHelpButton5').attr('name', "status 3");
 
-    } else if ($('#stepHelpButton5').name == "status 3") {
+    } else if ($('#stepHelpButton5').attr('name') == "status 3") {
         hideAllTables();
         $('#tableCaseEndings').show();
         $('#tablePartitive').show();
         $('#stepExplanation5').html("It's a little tricky when it comes to the <i>partitive</i> endings. The rules are now on the right side. Try to see if you can find the right ending.");
         $('#stepHelpButton5').html("No, more help needed!");
-        $('#stepHelpButton5').name = "status 4";
+        $('#stepHelpButton5').attr('name', "status 4");
 
-    } else if ($('#stepHelpButton5').name == "status 4") {
+    } else if ($('#stepHelpButton5').attr('name') == "status 4") {
 
         $('#stepHelpButton5').hide();
         $('#stepHide5').hide();
@@ -671,7 +680,7 @@ function partitiveHelp() {
         hideAllTables();
         $('#tableCaseEndings').show();
         $('#stepExplanation5').html("On the right you can see a list of the different cases with their endings. This should help.");
-        $('#stepHelpButton5').name = "status 2";
+        $('#stepHelpButton5').attr('name', "status 2");
 
     };
 
@@ -679,22 +688,22 @@ function partitiveHelp() {
 
 function illativeHelp() {
 
-    if ($('#stepHelpButton5').name == "status 2") {
+    if ($('#stepHelpButton5').attr('name') == "status 2") {
 
         document.getElementById("ending-" + dataCase).className = "warning";
         $('#stepExplanation5').html("The row with the right ending for the <i>" + dataCase + "</i> is highlighted is the table. If you need more help, use the help button again.");
-        $('stepHelpButton5').name = "status 3";
+        $('#stepHelpButton5').attr('name', "status 3");
 
-    } else if ($('#stepHelpButton5').name == "status 3") {
+    } else if ($('#stepHelpButton5').attr('name') == "status 3") {
 
         hideAllTables();
         $('#tableCaseEndings').show();
         $('#tableIllative').show();
         $('#stepExplanation5').html("It's a little tricky when it comes to the <i>illative</i> endings. The rules are now on the right side. Try to see if you can find the right ending.");
         $('#stepHelpButton5').html("No, more help needed!");
-        $('#stepHelpButton5').name = "status 4";
+        $('#stepHelpButton5').attr('name', "status 4");
 
-    } else if ($('#stepHelpButton5').name == "status 4") {
+    } else if ($('#stepHelpButton5').attr('name') == "status 4") {
 
         $('#stepHelpButton5').hide();
         $('#stepHide5').hide();
@@ -707,7 +716,7 @@ function illativeHelp() {
         hideAllTables();
         $('#tableCaseEndings').show();
         $('#stepExplanation5').html("On the right you can see a list of the different cases with their endings. This should help.");
-        $('#stepHelpButton5').name = "status 2";
+        $('#stepHelpButton5').attr('name', "status 2");
 
     };
 
@@ -716,18 +725,18 @@ function illativeHelp() {
 
 function otherCasesHelp() {
 
-    if ($('#stepHelpButton5').name == "status 2") {
+    if ($('#stepHelpButton5').attr('name') == "status 2") {
 
         document.getElementById("ending-" + dataCase).className = "warning";
         $('#stepExplanation5').html("The row with the right ending for the <i>" + dataCase + "</i> is highlighted is the table. If that's not enough, use the reveal <i class='eye slash icon'></i> button.");
-        $('stepHelpButton5').hide();
+        $('#stepHelpButton5').hide();
 
     } else {
 
         hideAllTables();
         $('#tableCaseEndings').show();
         $('#stepExplanation5').html("On the right you can see a list of the different cases with their endings. This should help.");
-        $('#stepHelpButton5').name = "status 2";
+        $('#stepHelpButton5').attr('name', "status 2");
 
     };
 
