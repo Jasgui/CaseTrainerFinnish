@@ -550,9 +550,22 @@ $('#stepHelpButton7').click(function () {
 
     } else if ($('#stepHelpButton7').attr('name') == "status 3") {
 
-        $('#stepExplanation7').show();
-        $('#stepExplanation7').html("Ok, so the stem is <i>" + $('#stepAnswer4').html() + "</i> and the stem+ending is *<i>" + $('#stepAnswer4').html().slice(0, -1) + $('#stepAnswer6').html().slice(1) + "</i>.<br/><br/>We cut them in syllables:<br/><br/>" + data[index_number].StemCut + " and " + data[index_number].BeforeGradationCut + "<br/><br/>Then we look at the last syllable from the stem:<br/><br/> " + data[index_number].StemCutUnderlined + " and " + data[index_number].BeforeGradationCutUnderlined + "<br/><br/>The first one is <b>" + data[index_number].StemSyllable + "</b> and is <i>" + data[index_number].StemSyllableStatus + "</i> and the second one is <b>" + data[index_number].BeforeGradationSyllable + "</b> and is <i>" + data[index_number].BeforeGradationSyllableStatus + "</i>.<br/><br/>So from Stem > Word the syllable goes <i>" + data[index_number].StemSyllableStatus + " > " + data[index_number].BeforeGradationSyllableStatus + "</i><br/><br/>The consonant(s) right before that syllable is <b>" + data[index_number].ConsonantBefore + "</b> and it needs to also change from <i>" + data[index_number].StemSyllableStatus + " > " + data[index_number].BeforeGradationSyllableStatus + "</i><br/><br/>In the table you can see that a <b>" + data[index_number].ConsonantBefore + "</b> in an <i>" + data[index_number].StemSyllableStatus + " syllable</i> corresponds to a <b>" + data[index_number].ConsonantAfter + "</b> in a <i>" + data[index_number].BeforeGradationSyllableStatus + " syllable</i><br/><br/>So in this case you need to apply <b>" + data[index_number].Gradation + "</b>");
-        $('#stepHelpButton7').hide();
+        if (data[index_number].Gradation == "none") {
+
+            $('#stepExplanation7').show();
+            $('#stepExplanation7').html("Ok, so the stem is <i>" + $('#stepAnswer4').html() + "</i> and the stem+ending is *<i>" + $('#stepAnswer4').html().slice(0, -1) + $('#stepAnswer6').html().slice(1) + "</i>.<br/><br/>We cut them in syllables:<br/><br/>" + data[index_number].StemCut + " and " + data[index_number].BeforeGradationCut + "<br/><br/>Then we look at the last syllable from the stem:<br/><br/> " + data[index_number].StemCutUnderlined + " and " + data[index_number].BeforeGradationCutUnderlined + "<br/><br/>The first one is <b>" + data[index_number].StemSyllable + "</b> and is <i>" + data[index_number].StemSyllableStatus + "</i> and the second one is <b>" + data[index_number].BeforeGradationSyllable + "</b> and is <b><i>ALSO</i></b> <i>" + data[index_number].BeforeGradationSyllableStatus + "</i>.<br/><br/>So there is no need for any gradation here since the status of the syllable didn't change.");
+            $('#stepHelpButton7').hide();
+
+
+        } else {
+
+            $('#stepExplanation7').show();
+            $('#stepExplanation7').html("Ok, so the stem is <i>" + $('#stepAnswer4').html() + "</i> and the stem+ending is *<i>" + $('#stepAnswer4').html().slice(0, -1) + $('#stepAnswer6').html().slice(1) + "</i>.<br/><br/>We cut them in syllables:<br/><br/>" + data[index_number].StemCut + " and " + data[index_number].BeforeGradationCut + "<br/><br/>Then we look at the last syllable from the stem:<br/><br/> " + data[index_number].StemCutUnderlined + " and " + data[index_number].BeforeGradationCutUnderlined + "<br/><br/>The first one is <b>" + data[index_number].StemSyllable + "</b> and is <i>" + data[index_number].StemSyllableStatus + "</i> and the second one is <b>" + data[index_number].BeforeGradationSyllable + "</b> and is <i>" + data[index_number].BeforeGradationSyllableStatus + "</i>.<br/><br/>So from Stem > Word the syllable goes <i>" + data[index_number].StemSyllableStatus + " > " + data[index_number].BeforeGradationSyllableStatus + "</i><br/><br/>The consonant(s) right before that syllable is <b>" + data[index_number].ConsonantBefore + "</b> and it needs to also change from <i>" + data[index_number].StemSyllableStatus + " > " + data[index_number].BeforeGradationSyllableStatus + "</i><br/><br/>In the table you can see that a <b>" + data[index_number].ConsonantBefore + "</b> in an <i>" + data[index_number].StemSyllableStatus + " syllable</i> corresponds to a <b>" + data[index_number].ConsonantAfter + "</b> in a <i>" + data[index_number].BeforeGradationSyllableStatus + " syllable</i><br/><br/>So in this case you need to apply <b>" + data[index_number].Gradation + "</b>");
+            $('#stepHelpButton7').hide();
+
+
+        };
+
 
     } else {
 
