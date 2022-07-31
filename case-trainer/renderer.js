@@ -328,27 +328,29 @@ function stepConfirmButton1_clicked() {
 
     } else {
 
-        hide(stepHide1);
-        show(stepAnswer1);
-        stepExplanation1.innerHTML = "Oops, that's not the word I was expecting. I was thinking of <b>" + dataWordFinnish + "</b>. We'll use this one, ok?<br/><br/> You can continue with the next steps.";
-        hide(stepConfirmButton1);
+        $('#stepHide1').hide();
+        $('#stepAnswer1').show();
+        $('#stepExplanation1').show();
+        $('#stepExplanation1').html("Oops, that's not the word I was expecting. I was thinking of <b>" + dataWordFinnish + "</b>. We'll use this one, ok?<br/><br/> You can continue with the next steps.");
+        $('#stepConfirmButton1').hide();
     };
 
 };
 
 function stepConfirmButton2_clicked() {
 
-    if (stepInput2.value == dataCase) {
+    if ($('#stepInput2').val() == dataCase) {
 
-        hide(stepHide2);
-        hide(stepHide2a);
-        show(stepAnswer2);
-        stepExplanation2.innerHTML = "You're right! The case we need to use is the <b>" + dataCase + "</b>.";
+        $('#stepHide2').hide();
+        $('#stepHide2a').hide();
+        $('#stepAnswer2').show();
+        $('#stepExplanation1').show();
+        $('#stepExplanation1').html("You're right! The case we need to use is the <b>" + dataCase + "</b>.");
 
     } else {
 
-        stepPrompt2.innerHTML = "No... that's not the right case. You can try again or you can use the help button.<br/><br/>";
-        stepInput1.value = "";
+        $('#stepPrompt2').html("No... that's not the right case. You can try again or you can use the help button.<br/><br/>");
+        $('#stepInput2').val("none").change();
     };
 };
 
@@ -362,44 +364,47 @@ function stepConfirmButton3_clicked() {
     var dataStem1_clean = dataStem1.slice(0, -1);
     var dataStem2_clean = dataStem2.slice(0, -1);
 
-    if (stepInput3a.value.slice(-1) == "-") {
-        step1input_clean = stepInput3a.value.slice(0, -1);
+    if ($('#stepInput3a').val().slice(-1) == "-") {
+        step1input_clean = $('#stepInput3a').val().slice(0, -1);
     } else {
-        step1input_clean = stepInput3a.value;
+        step1input_clean = $('#stepInput3a').val();
     };
 
 
-    if (stepInput3b.value.slice(-1) == "-") {
-        step2input_clean = stepInput3b.value.slice(0, -1);
+    if ($('#stepInput3b').val().slice(-1) == "-") {
+        step2input_clean = $('#stepInput3b').val().slice(0, -1);
     } else {
-        step2input_clean = stepInput3b.value;
+        step2input_clean = $('#stepInput3b').val();
     };
 
 
     if (step1input_clean == dataStem1_clean && step2input_clean == dataStem2_clean) {
 
-        hide(stepHide3);
-        hide(stepHide3a);
-        show(stepAnswer3);
-        stepExplanation3.innerHTML = "Exactly! The stems for <i>" + dataWordFinnish + "</i> are <b>" + dataStem1 + " / " + dataStem2 + "</b>.";
+        $('#stepHide3').hide();
+        $('#stepHide3a').hide();
+        $('#stepAnswer3').show();
+        $('#stepExplanation3').show();
+        $('#stepExplanation1').html("Exactly! The stems for <i>" + dataWordFinnish + "</i> are <b>" + dataStem1 + " / " + dataStem2 + "</b>.");
 
     } else if (step1input_clean == dataStem1_clean) {
 
-        stepPrompt3.innerHTML = "The first stem is right, but something is off with Stem 2. You can try again or use the help button.<br/><br/>";
-        stepInput3b.value = "";
-        stepInput3b.focus();
+        $('#stepPrompt3').html("The first stem is right, but something is off with Stem 2. You can try again or use the help button.<br/><br/>");
+        $('#stepInput3b').val("").change();
+        $('#stepInput3b').focus();
+
     } else if (step2input_clean == dataStem2_clean) {
 
-        stepPrompt3.innerHTML = "The second stem is right, but something is off with Stem 1. You can try again or use the help button.<br/><br/>";
-        stepInput3a.value = "";
-        stepInput3a.focus();
+        $('#stepPrompt3').html("The second stem is right, but something is off with Stem 1. You can try again or use the help button.<br/><br/>");
+        $('#stepInput3a').val("").change();
+        $('#stepInput3a').focus();
+
     } else {
 
-        stepPrompt3.innerHTML = "Oops, not what I was expecting... You can try again or use the help button.<br/><br/>";
+        $('#stepPrompt3').html("Oops, not what I was expecting... You can try again or use the help button.<br/><br/>");
+        $('#stepInput3a').val("").change();
+        $('#stepInput3b').val("").change();
+        $('#stepInput3a').focus();
 
-        stepInput3a.value = "";
-        stepInput3b.value = "";
-        stepInput3a.focus();
     };
 
 };
@@ -407,48 +412,55 @@ function stepConfirmButton3_clicked() {
 function stepConfirmButton4_clicked() {
     var rightStem = "";
     if (dataCase == "partitive") {
-        stepAnswer4.innerHTML = dataStem2;
+        $('#stepAnswer4').html(dataStem2);
         rightStem = dataStem2;
     } else {
-        stepAnswer4.innerHTML = dataStem1;
+        $('#stepAnswer4').html(dataStem1);
         rightStem = dataStem1;
     };
-
 
     var stepinput_clean = "";
     var answer_clean = rightStem.slice(0, -1);
     var dataStem1_clean = dataStem1.slice(0, -1);
     var dataStem2_clean = dataStem2.slice(0, -1);
 
-    if (stepInput4.value.slice(-1) == "-") {
-        stepinput_clean = stepInput4.value.slice(0, -1);
+    if ($('#stepInput4').val().slice(-1) == "-") {
+        stepinput_clean = $('#stepInput4').val().slice(0, -1);
     } else {
-        stepinput_clean = stepInput4.value;
+        stepinput_clean = $('#stepInput4').val();
     };
 
     if (stepinput_clean == answer_clean) {
 
-        hide(stepHide4);
-        hide(stepHide4a);
-        show(stepAnswer4);
-        stepExplanation4.innerHTML = "Yes! The right stem to use here is <b>" + rightStem + "</b>."
+        $('#stepHide4').hide();
+        $('#stepHide4a').hide();
+        $('#stepAnswer4').show();
+        $('#stepExplanation4').show();
+        $('#stepExplanation1').html("Yes! The right stem to use here is <b>" + rightStem + "</b>.");
 
     } else if (stepinput_clean == dataStem1_clean || stepinput_clean == dataStem2_clean) {
 
         if (dataCase == "partitive") {
+
             var explanationText = "It looks like you chose the wrong stem.<br/><br/>For the <i>partitive<i/> you always use stem 2: <b>" + dataStem2 + "</b>.";
+
         } else {
+
             var explanationText = "<i class='exclamation triangle icon'></i> It looks like you chose the wrong stem.<br/><br/>Stem 2 is only used for the <i>partitive</i>. For all other cases, including the <i>" + dataCase + "</i> you need to use stem 1: <b>" + dataStem1 + "</b>.";
 
-            hide(stepHide4);
-            hide(stepHide4a);
-            show(stepAnswer4);
+            $('#stepHide4').hide();
+            $('#stepHide4a').hide();
+            $('#stepAnswer4').show();
         };
 
-        stepExplanation4.innerHTML = explanationText;
+        $('#stepExplanation4').show();
+        $('#stepExplanation4').html(explanationText);
 
     } else {
-        stepExplanation4.innerHTML = "Oops, that doesn't seem to be a valid root for this word. Maybe you should check the previous Step?";
+
+        $('#stepExplanation4').show();
+        $('#stepExplanation4').html("Oops, that doesn't seem to be a valid root for this word. Maybe you should check the previous Step?");
+
     };
 
 };
@@ -473,17 +485,17 @@ function stepConfirmButton5_clicked() {
     };
 
 
-    if (stepInput5.value == rightEnding) {
+    if ($('#stepInput5').val() == rightEnding) {
 
-
-        hide(stepHide5);
-        hide(stepHide5a);
-        show(stepAnswer5);
-        stepExplanation5.innerHTML = "Yes! The ending for the <i>" + dataCase + "</i> of the word <i>" + dataWordFinnish + "</i> is <b>" + rightEnding + "</b>.";
+        $('#stepHide5').hide();
+        $('#stepHide5a').hide();
+        $('#stepAnswer5').show();
+        $('#stepExplanation5').show();
+        $('#stepExplanation5').html("Yes! The ending for the <i>" + dataCase + "</i> of the word <i>" + dataWordFinnish + "</i> is <b>" + rightEnding + "</b>.");
 
     } else {
 
-        stepPrompt5.innerHTML = "That's not the right case. If you need help, use the help button.";
+        $('#stepPrompt5').html("That's not the right case. If you need help, use the help button.");
 
     };
 
@@ -494,23 +506,23 @@ function stepConfirmButton6_clicked() {
     var stepinput_clean = "";
     var dataEndingsFinal_clean = dataEndingsFinal.slice(1);
 
-    if (stepInput6.value.slice(0, 1) == "-") {
-        stepinput_clean = stepInput6.value.slice(1);
+    if ($('#stepInput6').val().slice(0, 1) == "-") {
+        stepinput_clean = $('#stepInput6').val().slice(1);
     } else {
-        stepinput_clean = stepInput6.value;
+        stepinput_clean = $('#stepInput6').val();
     };
 
     if (stepinput_clean == dataEndingsFinal_clean) {
 
-
-        hide(stepHide6);
-        hide(stepHide6a);
-        show(stepAnswer6);
-        stepExplanation6.innerHTML = "Exact! The ending after applying the <i>vowel harmony</i> is <b>" + dataEndingsFinal + "</b>.";
+        $('#stepHide6').hide();
+        $('#stepHide6a').hide();
+        $('#stepAnswer6').show();
+        $('#stepExplanation6').show();
+        $('#stepExplanation6').html("Exact! The ending after applying the <i>vowel harmony</i> is <b>" + dataEndingsFinal + "</b>.");
 
     } else {
 
-        stepPrompt6.innerHTML = "That's not it... Try again or use the help.";
+        $('#stepPrompt6').html("That's not it... Try again or use the help.");
 
     };
 
@@ -519,12 +531,12 @@ function stepConfirmButton6_clicked() {
 
 function stepConfirmButton7_clicked() {
 
-    if (stepInput7.value == dataGradation) {
+    if ($('#stepInput7').val() == dataGradation) {
 
+        $('#stepHide7').hide();
+        $('#stepHide7a').hide();
+        $('#stepAnswer7').show();
 
-        hide(stepHide7);
-        hide(stepHide7a);
-        show(stepAnswer7);
 
         var explanationText = "";
         if (dataGradation == "none") {
@@ -533,34 +545,61 @@ function stepConfirmButton7_clicked() {
             explanationText = "You're absolutely right! This word will undergo the <b>" + dataGradation + "</b> gradation.";
         };
 
-        stepExplanation7.innerHTML = explanationText;
+        $('#stepExplanation7').show();
+        $('#stepExplanation7').html(explanationText);
 
     } else {
 
-        stepPrompt7.innerHTML = "So you have a stem and and ending. Combined together they give <b>*" + stepAnswer4.innerHTML.slice(0, -1) + stepAnswer6.innerHTML.slice(1) + "</b><br/><br/>I put a little * before to remind you this word might not exist like that.<br/><br/>That's not correct... try again or use the help button<br/><br/>";
+        $('#stepPrompt7').html("So you have a stem and and ending. Combined together they give <b>*" + stepAnswer4.innerHTML.slice(0, -1) + stepAnswer6.innerHTML.slice(1) + "</b><br/><br/>I put a little * before to remind you this word might not exist like that.<br/><br/>That's not correct... try again or use the help button<br/><br/>");
     };
 
 
 };
 
 
-stepHelpButton1.onclick = function () {
+$('#stepHelpButton1').click(function () {
 
-    hide(stepHide1);
-    show(stepAnswer1);
-    hide(stepHide1a);
-    stepExplanation1.innerHTML = "The Finnish word that means <b><i>" + dataWordEnglish + "</i></b> is <b>" + dataWordFinnish + "</b><br/><br/>You can continue with the next steps.";
+    $('#stepHide1').hide();
+    $('#stepAnswer1').show();
+    $('#stepHide1a').hide();
+    $('#stepExplanation1').html("The Finnish word that means <b><i>" + dataWordEnglish + "</i></b> is <b>" + dataWordFinnish + "</b><br/><br/>You can continue with the next steps.");
 
-};
+});
 
-stepHelpButton2.onclick = function () {
+$('#stepHelpButton2').click(function () {
 
-    hide(stepHelpButton2);
+    $('#stepHide2').hide();
     hideAllTables();
-    show(tableCaseMeaning);
-    stepExplanation2.innerHTML = "I have opened a list of cases with their basic meanings on the right. Try to choose the right one with the help of the table.<br/><br/> If you're still having issues, the reveal <i class='eye slash icon'></i> button is there for you.";
+    $('#tableCaseMeaning').show();
+    $('#stepExplanation1').html("I have opened a list of cases with their basic meanings on the right. Try to choose the right one with the help of the table.<br/><br/> If you're still having issues, the reveal <i class='eye slash icon'></i> button is there for you.");
 
-};
+});
+
+$('#stepHelpButton3').click(function () {
+
+    if ($('#stepHelpButton3').name == "status 2") {
+
+        $('#stepExplanation3').html("Because <i>" + dataWordFinnishHighlighted + "</i> " + dataTypeReason + ", it belongs to group " + dataType + ". I have highlighted it in the table. Does that help?)");
+        document.getElementById("type" + dataType).className = "warning";
+        $('#stepHelpButton3').html("I still need help");
+        $('#stepHelpButton3').name = "status 3";
+
+    } else if (stepHelpButton3.name == "status 3") {
+
+        $('#stepExplanation3').html("So for this type, " + dataTypeExplanation + ".<br/><br/>Try again typing the stems or use the reveal <i class='eye slash icon'></i> button.");
+        $('#stepHelpButton3').hide();
+
+    } else {
+        $('#stepExplanation3').html("On the right you can have a look at the different types of words and try to find the one that matches here. Then, try to type the stems again.<br/><br/>If you need more help, press the help button again.");
+        $('#stepHelpButton3').html("I need more help");
+        $('#stepHelpButton3').name = "status 2";
+        hideAllTables();
+        $('#tableStems').show();
+
+    };
+
+});
+
 
 stepHelpButton3.onclick = function () {
 
