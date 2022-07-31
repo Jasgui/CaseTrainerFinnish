@@ -2,13 +2,21 @@
 
 ///Initialisation
 
+const consonants = ["b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "z"];
+const vowels = ["a", "ä", "e", "i", "o", "ö", "u", "y"];
+
 var data = [];
 var index_number = 0;
 
-$.getJSON('test.json', function (jsonData) {
+$.getJSON('data.json', function (jsonData) {
 
     jsonData.data.forEach(function (current_item) {
 
+        if (current_item.Case == "partitive") {
+            current_item.RightStem = current_item.Stem2;
+        } else {
+            current_item.RightStem = current_item.Stem1;
+        }
         current_item.WordFinnish = get_dataWordFinnish_from_dataWordFinnishHighlighted(current_item.WordFinnishHighlighted);
         data.push(current_item);
 
@@ -88,15 +96,7 @@ function trainer1() {
 
     /// RIGHT STEM
 
-    var rightStem = "";
-    if (data[index_number].Case == "partitive") {
-        $('#stepAnswer4').html(data[index_number].Stem2);
-        rightStem = data[index_number].Stem2;
-    } else {
-        $('#stepAnswer4').html(data[index_number].Stem1);
-        rightStem = data[index_number].Stem1;
-    };
-
+    $('#stepAnswer4').html(data[index_number].RightStem);
     $('#stepPrompt4').html("Now an easy part: which of the two stems should you use in this case?");
     $('#stepPrompt4').show();
 
@@ -286,17 +286,9 @@ function stepConfirmButton3_clicked() {
 };
 
 function stepConfirmButton4_clicked() {
-    var rightStem = "";
-    if (data[index_number].Case == "partitive") {
-        $('#stepAnswer4').html(dataStem2);
-        rightStem = dataStem2;
-    } else {
-        $('#stepAnswer4').html(data[index_number].Stem1);
-        rightStem = data[index_number].Stem1;
-    };
-
+    $('#stepAnswer4').html(data[index_number].RightStem);
     var stepinput_clean = "";
-    var answer_clean = rightStem.slice(0, -1);
+    var answer_clean = data[index_number].RightStem.slice(0, -1);
     var dataStem1_clean = data[index_number].Stem1.slice(0, -1);
     var dataStem2_clean = data[index_number].Stem2.slice(0, -1);
 
@@ -312,7 +304,7 @@ function stepConfirmButton4_clicked() {
         $('#stepHide4a').hide();
         $('#stepAnswer4').show();
         $('#stepExplanation4').show();
-        $('#stepExplanation1').html("Yes! The right stem to use here is <b>" + rightStem + "</b>.");
+        $('#stepExplanation1').html("Yes! The right stem to use here is <b>" + data[index_number].RightStem + "</b>.");
 
     } else if (stepinput_clean == dataStem1_clean || stepinput_clean == dataStem2_clean) {
 
@@ -526,6 +518,28 @@ $('#stepHelpButton6').click(function () {
 
 $('#stepHelpButton7').click(function () {
 
+    let pattern_vowels = /[aeiouäöy][aeiouäöy]$/;
+    let pattern_consonant = /[bcdfghjklmnpqrstvwz]$/;
+    var noGradationText = "";
+    var is_gradation = true;
+
+
+    console.log(data[index_number].RightStem.slice(0, -1));
+    console.log(pattern_vowels.test(data[index_number].RightStem.slice(0, -1)));
+    console.log(pattern_consonant.test(data[index_number].RightStem.slice(0, -1)));
+
+
+    if (pattern_vowels.test(data[index_number].RightStem.slice(0, -1)) == true) {
+
+        noGradationText = "There is no gradation here because the stem ends in two vowels: " + data[index_number].RightStem.slice(0, -3) + "<b>" + data[index_number].RightStem.slice(-3) + "</b>";
+        is_gradation = false;
+
+    } else if (pattern_consonant.test(data[index_number].RightStem.slice(0, -1)) == true) {
+
+        noGradationText = "There is no gradation here because the stem ends in a consonant: " + data[index_number].RightStem.slice(0, -2) + "<b>" + data[index_number].RightStem.slice(-2) + "</b>";
+        is_gradation = false;
+
+    };
 
     if ($('#stepHelpButton7').attr('name') == "status 2") {
 
@@ -542,12 +556,23 @@ $('#stepHelpButton7').click(function () {
 
     } else {
 
-        hideAllTables();
-        $('#tableCons').show();
-        $('#stepExplanation7').show();
-        $('#stepExplanation7').html("The table on the right lists the different types of consonant gradation. Doesn't that help you?");
-        $('#stepHelpButton7').attr('name', "status 2");
-        $('#stepHelpButton7').html("I need more help!");
+        if (is_gradation == false) {
+
+            $('#stepExplanation7').show();
+            $('#stepExplanation7').html(noGradationText);
+            $('#stepHelpButton7').hide();
+
+        } else {
+
+            hideAllTables();
+            $('#tableCons').show();
+            $('#stepExplanation7').show();
+            $('#stepExplanation7').html("The table on the right lists the different types of consonant gradation. Doesn't that help you?");
+            $('#stepHelpButton7').attr('name', "status 2");
+            $('#stepHelpButton7').html("I need more help!");
+
+        };
+
 
     };
 
@@ -576,18 +601,11 @@ $('#stepReveal3').click(function () {
 
 $('#stepReveal4').click(function () {
 
-    var rightStem = "";
-    if (data[index_number].Case == "partitive") {
-        rightStem = data[index_number].Stem2;
-    } else {
-        rightStem = data[index_number].Stem1;
-    };
-
     $('#stepHide4').hide();
     $('#stepHide4a').hide();
     $('#stepAnswer4').show();
     $('#stepExplanation4').show();
-    $('#stepExplanation4').html("The stem for the <i>" + data[index_number].Case + "</i> is <b>" + rightStem + "</b>.");
+    $('#stepExplanation4').html("The stem for the <i>" + data[index_number].Case + "</i> is <b>" + data[index_number].RightStem + "</b>.");
 
 });
 
@@ -857,6 +875,14 @@ function resetTrainerData() {
     $('#stepExplanation5').hide();
     $('#stepExplanation6').hide();
     $('#stepExplanation7').hide();
+
+    $('#stepHelpButton1').html("I don't know the word");
+    $('#stepHelpButton2').html("Help me with the cases");
+    $('#stepHelpButton3').html("Help with the stems");
+    $('#stepHelpButton4').html("Help with the stems");
+    $('#stepHelpButton5').html("Help me with the cases");
+    $('#stepHelpButton6').html("Help with the stems");
+    $('#stepHelpButton7').html("Help me with the gradation");
 
     $('#stepHelpButton1').show();
     $('#stepHelpButton2').show();
