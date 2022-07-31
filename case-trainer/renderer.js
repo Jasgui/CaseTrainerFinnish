@@ -229,7 +229,6 @@ function hide(element) {
 
 function trainer1() {
 
-
     show(inputField);
     show(trainerButton);
     show(accordion);
@@ -305,7 +304,6 @@ function trainer1() {
 
 stepInput1.addEventListener("keypress", function (event) {
 
-    stepConfirmButton1_clicked();
 
     if (event.key === "Enter") {
         event.preventDefault();

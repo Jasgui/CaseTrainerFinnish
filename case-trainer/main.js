@@ -11,13 +11,14 @@ const {
 
 const createWindow = () => {
     const win = new BrowserWindow({
-        fullscreen: true,
+        width: 1280,
+        height: 800,
+        autoHideMenuBar: true,
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'),
             nodeIntegration: true
         },
     })
-    ipcMain.handle('ping', () => 'pong');
     win.loadFile('index.html')
 }
 
