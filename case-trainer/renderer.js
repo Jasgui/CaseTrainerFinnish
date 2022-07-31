@@ -1,105 +1,5 @@
 //////////////////////////////////
 
-const modalButton = document.getElementById('modalButton');
-const correctModal = document.getElementById('correctModal');
-
-const mainText = document.getElementById('mainText');
-const helperText = document.getElementById('helperText');
-
-const menuTutorial = document.getElementById('menuTutorial');
-const menuTrainer = document.getElementById('menuTrainer');
-//const menuHome = document.getElementById('menuHome');
-
-const tableStems = document.getElementById('tableStems');
-const tableCaseEndings = document.getElementById('tableCaseEndings');
-const tableVocal1 = document.getElementById('tableVocal1');
-const tableVocal2 = document.getElementById('tableVocal2');
-const tableCons = document.getElementById('tableCons');
-
-const gridTrainer = document.getElementById('gridTrainer');
-const trainerText = document.getElementById('trainerText');
-
-const inputField = document.getElementById('inputField');
-const trainerButton = document.getElementById('trainerButton');
-
-const stepAnswer1 = document.getElementById('stepAnswer1');
-const stepPrompt1 = document.getElementById('stepPrompt1');
-const stepInput1 = document.getElementById('stepInput1');
-var stepHelpButton1 = document.getElementById('stepHelpButton1');
-const stepExplanation1 = document.getElementById('stepExplanation1');
-const stepConfirmButton1 = document.getElementById('stepConfirmButton1');
-
-const stepAnswer2 = document.getElementById('stepAnswer2');
-const stepPrompt2 = document.getElementById('stepPrompt2');
-const stepInput2 = document.getElementById('stepInput2');
-const stepHelpButton2 = document.getElementById('stepHelpButton2');
-const stepExplanation2 = document.getElementById('stepExplanation2');
-const stepReveal2 = document.getElementById('stepReveal2');
-const stepConfirmButton2 = document.getElementById('stepConfirmButton2');
-
-const stepHide1 = document.getElementById('stepHide1');
-const stepHide1a = document.getElementById('stepHide1a');
-const stepHide2 = document.getElementById('stepHide2');
-const stepHide2a = document.getElementById('stepHide2a');
-
-const stepAnswer3 = document.getElementById('stepAnswer3');
-const stepPrompt3 = document.getElementById('stepPrompt3');
-const stepInput3a = document.getElementById('stepInput3a');
-const stepInput3b = document.getElementById('stepInput3b');
-const stepHelpButton3 = document.getElementById('stepHelpButton3');
-const stepExplanation3 = document.getElementById('stepExplanation3');
-const stepReveal3 = document.getElementById('stepReveal3');
-const stepHide3 = document.getElementById('stepHide3');
-const stepConfirmButton3 = document.getElementById('stepConfirmButton3');
-const stepHide3a = document.getElementById('stepHide3a');
-
-const stepAnswer4 = document.getElementById('stepAnswer4');
-const stepPrompt4 = document.getElementById('stepPrompt4');
-const stepInput4 = document.getElementById('stepInput4');
-const stepHelpButton4 = document.getElementById('stepHelpButton4');
-const stepExplanation4 = document.getElementById('stepExplanation4');
-const stepReveal4 = document.getElementById('stepReveal4');
-const stepHide4 = document.getElementById('stepHide4');
-const stepConfirmButton4 = document.getElementById('stepConfirmButton4');
-const stepHide4a = document.getElementById('stepHide4a');
-
-const stepAnswer5 = document.getElementById('stepAnswer5');
-const stepPrompt5 = document.getElementById('stepPrompt5');
-const stepInput5 = document.getElementById('stepInput5');
-const stepHelpButton5 = document.getElementById('stepHelpButton5');
-const stepExplanation5 = document.getElementById('stepExplanation5');
-const stepReveal5 = document.getElementById('stepReveal5');
-const stepHide5 = document.getElementById('stepHide5');
-const stepConfirmButton5 = document.getElementById('stepConfirmButton5');
-const stepHide5a = document.getElementById('stepHide5a');
-
-const tablePartitive = document.getElementById('tablePartitive');
-const tableIllative = document.getElementById('tableIllative');
-
-const stepAnswer6 = document.getElementById('stepAnswer6');
-const stepPrompt6 = document.getElementById('stepPrompt6');
-const stepInput6 = document.getElementById('stepInput6');
-const stepHelpButton6 = document.getElementById('stepHelpButton6');
-const stepExplanation6 = document.getElementById('stepExplanation6');
-const stepReveal6 = document.getElementById('stepReveal6');
-const stepHide6 = document.getElementById('stepHide6');
-const stepConfirmButton6 = document.getElementById('stepConfirmButton6');
-const stepHide6a = document.getElementById('stepHide6a');
-
-const stepAnswer7 = document.getElementById('stepAnswer7');
-const stepPrompt7 = document.getElementById('stepPrompt7');
-const stepInput7 = document.getElementById('stepInput7');
-const stepHelpButton7 = document.getElementById('stepHelpButton7');
-const stepExplanation7 = document.getElementById('stepExplanation7');
-const stepReveal7 = document.getElementById('stepReveal7');
-const stepHide7 = document.getElementById('stepHide7');
-const stepConfirmButton7 = document.getElementById('stepConfirmButton7');
-const stepHide7a = document.getElementById('stepHide7a');
-
-const accordion = document.getElementById('accordion');
-const tableCaseMeaning = document.getElementById('tableCaseMeaning');
-
-
 ///Initialisation
 
 console.log(datajson);
@@ -176,27 +76,16 @@ function get_dataWordFinnish_from_dataWordFinnishHighlighted(text) {
 
 };
 
-function hide(element) {
-
-    console.log(element);
-    element.style.display = 'none';
-
-
-};
-
-function show(element) {
-
-    element.style.display = "";
-
-
-};
 
 function trainer1() {
+
 
 
     $('#inputField').show();
     $('#trainerButton').show();
     $('#accordion').show();
+
+
 
     $('#trainerText').html("How would you say <b>" + dataPhrase + "</b> in Finnish?");
     $('#inputField').focus();
@@ -259,7 +148,7 @@ function trainer1() {
     /// FINDING CONSONANT GRADATION
 
     $('#stepAnswer7').html(dataGradation);
-    $('#stepPrompt7').html("So you have a stem and and ending. Combined together they give <b>*" + stepAnswer4.innerHTML.slice(0, -1) + stepAnswer6.innerHTML.slice(1) + "</b><br/><br/>I put a little * before to remind you this word might not exist like that.<br/><br/>What consonant gradation (if any) applies here?<br/><br/>");
+    $('#stepPrompt7').html("So you have a stem and and ending. Combined together they give <b>*" + $('#stepAnswer4').html().slice(0, -1) + $('#stepAnswer6').html().slice(1) + "</b><br/><br/>I put a little * before to remind you this word might not exist like that.<br/><br/>What consonant gradation (if any) applies here?<br/><br/>");
 
 };
 
@@ -600,50 +489,22 @@ $('#stepHelpButton3').click(function () {
 
 });
 
-
-stepHelpButton3.onclick = function () {
-
-    if (stepHelpButton3.name == "status 2") {
-
-        stepExplanation3.innerHTML = "Because <i>" + dataWordFinnishHighlighted + "</i> " + dataTypeReason + ", it belongs to group " + dataType + ". I have highlighted it in the table. Does that help?"
-        document.getElementById("type" + dataType).className = "warning";
-        stepHelpButton3.innerHTML = "I still need help";
-        stepHelpButton3.name = "status 3";
-
-    } else if (stepHelpButton3.name == "status 3") {
-
-        stepExplanation3.innerHTML = "So for this type, " + dataTypeExplanation + ".<br/><br/>Try again typing the stems or use the reveal <i class='eye slash icon'></i> button.";
-        hide(stepHelpButton3);
-
-    } else {
-        stepExplanation3.innerHTML = "On the right you can have a look at the different types of words and try to find the one that matches here. Then, try to type the stems again.<br/><br/>If you need more help, press the help button again.";
-        stepHelpButton3.innerHTML = "I need more help";
-        stepHelpButton3.name = "status 2";
-        hideAllTables();
-        show(tableStems);
-
-    };
-
-
-};
-
-stepHelpButton4.onclick = function () {
+$('#stepHelpButton4').click(function () {
 
     if (dataCase == "partitive") {
 
-        stepExplanation4.innerHTML = "The partitive is the only case that uses stem 2... That should help!";
-        hide(stepHelpButton4);
+        $('#stepExplanation4').html("The partitive is the only case that uses stem 2... That should help!");
+        $('#stepHelpButton4').hide();
 
     } else {
 
-        stepExplanation4.innerHTML = "All cases except the partitive use stem 1. Does that help?";
-        hide(stepHelpButton4);
+        $('#stepExplanation4').html("All cases except the partitive use stem 1. Does that help?");
+        $('#stepHelpButton4').hide();
 
     };
+});
 
-};
-
-stepHelpButton5.onclick = function () {
+$('#stepHelpButton5').click(function () {
 
     if (dataCase == "partitive") {
         partitiveHelp();
@@ -652,64 +513,66 @@ stepHelpButton5.onclick = function () {
     } else {
         otherCasesHelp();
     };
-};
+});
 
-stepHelpButton6.onclick = function () {
+$('#stepHelpButton6').click(function () {
 
     hideAllTables();
-    show(tableVocal1);
-    show(tableVocal2);
-    stepExplanation6.innerHTML = "Look at the <i>vowel harmony</i> table and remember to use the right vowel for the ending."
-    hide(stepHelpButton6);
-};
+    $('#tableVocal1').show();
+    $('#tableVocal2').show();
+    $('#stepExplanation1').html("Look at the <i>vowel harmony</i> table and remember to use the right vowel for the ending.");
+    $('#stepHelpButton6').hide();
 
-stepHelpButton7.onclick = function () {
+});
 
-    if (stepHelpButton7.name == "status 2") {
+$('#stepHelpButton7').click(function () {
 
-        stepExplanation7.innerHTML = "First, check the status of the last syllable of the stem. Does it goes open > closed, closed > open or remains the same?<br/><br/>If it changes, the consonant(s) right before that syllable change from one column to the other in the same order."
-        stepHelpButton7.innerHTML = "I'm still not sure";
-        stepHelpButton7.name = "status 3";
+    if ($('#stepHelpButton7').name == "status 2") {
 
-    } else if (stepHelpButton7.name == "status 3") {
+        $('#stepExplanation7').html("First, check the status of the last syllable of the stem. Does it goes open > closed, closed > open or remains the same?<br/><br/>If it changes, the consonant(s) right before that syllable change from one column to the other in the same order.");
+        $('#stepHelpButton7').html("I'm still not sure");
+        $('#stepHelpButton7').name = "status 3";
 
-        stepExplanation7.innerHTML = "Ok, so the stem is <i>" + stepAnswer4.innerHTML + "</i> and the stem+ending is <i>" + stepAnswer4.innerHTML.slice(0, -1) + stepAnswer6.innerHTML.slice(1) + "</i>.<br/><br/>We cut them in syllables:<br/><br/>" + dataStemCut + " and " + dataBeforeGradationCut + "<br/><br/>Then we look at the last syllable from the stem:<br/><br/> " + dataStemCutUnderlined + " and " + dataBeforeGradationCutUnderlined + "<br/><br/>The first one is <b>" + dataStemSyllable + "</b> and is <i>" + dataStemSyllableStatus + "</i> and the second one is <b>" + dataBeforeGradationSyllable + "</b> and is <i>" + dataBeforeGradationSyllableStatus + "</i>.<br/><br/>So from Stem > Word the syllable goes <i>" + dataStemSyllableStatus + " > " + dataBeforeGradationSyllableStatus + "</i><br/><br/>The consonant(s) right before that syllable is <b>" + dataConsonantBefore + "</b> and it needs to also change from <i>" + dataStemSyllableStatus + " > " + dataBeforeGradationSyllableStatus + "</i><br/><br/>In the table you can see that a <b>" + dataConsonantBefore + "</b> in an <i>" + dataStemSyllableStatus + " syllable</i> corresponds to a <b>" + dataConsonantAfter + "</b> in a <i>" + dataBeforeGradationSyllableStatus + " syllable</i><br/><br/>So in this case you need to apply <b>" + dataGradation + "</b>";
+    } else if ($('#stepHelpButton7').name == "status 3") {
 
-        hide(stepHelpButton7);
+        $('#stepExplanation7').html("Ok, so the stem is <i>" + $('#stepAnswer4').html() + "</i> and the stem+ending is <i>" + $('#stepAnswer4').html().slice(0, -1) + $('#stepAnswer6').html().slice(1) + "</i>.<br/><br/>We cut them in syllables:<br/><br/>" + dataStemCut + " and " + dataBeforeGradationCut + "<br/><br/>Then we look at the last syllable from the stem:<br/><br/> " + dataStemCutUnderlined + " and " + dataBeforeGradationCutUnderlined + "<br/><br/>The first one is <b>" + dataStemSyllable + "</b> and is <i>" + dataStemSyllableStatus + "</i> and the second one is <b>" + dataBeforeGradationSyllable + "</b> and is <i>" + dataBeforeGradationSyllableStatus + "</i>.<br/><br/>So from Stem > Word the syllable goes <i>" + dataStemSyllableStatus + " > " + dataBeforeGradationSyllableStatus + "</i><br/><br/>The consonant(s) right before that syllable is <b>" + dataConsonantBefore + "</b> and it needs to also change from <i>" + dataStemSyllableStatus + " > " + dataBeforeGradationSyllableStatus + "</i><br/><br/>In the table you can see that a <b>" + dataConsonantBefore + "</b> in an <i>" + dataStemSyllableStatus + " syllable</i> corresponds to a <b>" + dataConsonantAfter + "</b> in a <i>" + dataBeforeGradationSyllableStatus + " syllable</i><br/><br/>So in this case you need to apply <b>" + dataGradation + "</b>");
+
+        $('#stepHelpButton7').hide();
 
     } else {
 
         hideAllTables();
-        show(tableCons);
-        stepExplanation7.innerHTML = "The table on the right lists the different types of consonant gradation. Doesn't that help you?";
-        stepHelpButton7.name = "status 2";
-        stepHelpButton7.innerHTML = "I need more help!";
+        $('tableCons').show();
+        $('stepExplanation7').html("The table on the right lists the different types of consonant gradation. Doesn't that help you?");
+        $('stepHelpButton7').name = "status 2";
+        $('stepHelpButton7').html("I need more help!");
 
     };
 
+});
 
-};
 
+$('#stepReveal2').click(function () {
 
-stepReveal2.onclick = function () {
+    $('#stepHide2').hide();
+    $('#stepHide2a').hide();
+    $('#stepAnswer2').show();
+    $('#stepExplanation2').show();
+    $('#stepExplanation2').html("The case we need to use is the <b>" + dataCase + "</b>.");
 
-    hide(stepHide2);
-    hide(stepHide2a);
-    show(stepAnswer2);
-    stepExplanation2.innerHTML = "The case we need to use is the <b>" + dataCase + "</b>.";
+});
 
-};
+$('#stepReveal3').click(function () {
 
-stepReveal3.onclick = function () {
+    $('#stepHide3').hide();
+    $('#stepHide3a').hide();
+    $('#stepAnswer3').show();
+    $('#stepExplanation3').show();
+    $('#stepExplanation3').html("The stems for the words are <b>" + dataStem1 + " / " + dataStem2 + "</b>.");
 
-    hide(stepHide3);
-    hide(stepHide3a);
-    show(stepAnswer3);
-    stepExplanation3.innerHTML = "The stems for the words are <b>" + dataStem1 + " / " + dataStem2 + "</b>."
+});
 
-};
-
-stepReveal4.onclick = function () {
+$('#stepReveal4').click(function () {
 
     var rightStem = "";
     if (dataCase == "partitive") {
@@ -718,14 +581,15 @@ stepReveal4.onclick = function () {
         rightStem = dataStem1;
     };
 
-    hide(stepHide4);
-    hide(stepHide4a);
-    show(stepAnswer4);
-    stepExplanation4.innerHTML = "The stem for the <i>" + dataCase + "</i> is <b>" + rightStem + "</b>.";
+    $('#stepHide4').hide();
+    $('#stepHide4a').hide();
+    $('#stepAnswer4').show();
+    $('#stepExplanation4').show();
+    $('#stepExplanation4').html("The stem for the <i>" + dataCase + "</i> is <b>" + rightStem + "</b>.");
 
-};
+});
 
-stepReveal5.onclick = function () {
+$('#stepReveal5').click(function () {
 
     const caseEndings = [["nominative", "-"], ["accusative", "-n"], ["genitive", "-n"], ["inessive", "-ssa/ssä"], ["elative", "-sta/stä"], ["adessive", "-lla/llä"], ["ablative", "-lta/ltä"], ["allative", "-lle"], ["essive", "-na/nä"], ["translative", "-ksi"]];
     var rightEnding = "";
@@ -742,27 +606,25 @@ stepReveal5.onclick = function () {
         }
 
     };
+    $('#stepHide5').hide();
+    $('#stepHide5a').hide();
+    $('#stepAnswer5').show();
+    $('#stepExplanation5').show();
+    $('#stepExplanation5').html("The ending for the <i>" + dataCase + "</i> of <i>" + dataWordFinnish + "</i> is <b>" + rightEnding + "</b>");
 
-    hide(stepHide5);
-    hide(stepHide5a);
-    show(stepAnswer5);
-    stepExplanation5.innerHTML = "The ending for the <i>" + dataCase + "</i> of <i>" + dataWordFinnish + "</i> is <b>" + rightEnding + "</b>";
+});
 
-};
+$('#stepReveal6').click(function () {
 
-stepReveal6.onclick = function () {
+    $('#stepHide6').hide();
+    $('#stepHide6a').hide();
+    $('#stepAnswer6').show();
+    $('#stepExplanation6').show();
+    $('#stepExplanation6').html("The right version of the ending in this case is <b>" + dataEndingsFinal + "</b>");
 
-    hide(stepHide6);
-    hide(stepHide6a);
-    show(stepAnswer6);
-    stepExplanation6.innerHTML = "The right version of the ending in this case is <b>" + dataEndingsFinal + "</b>";
+});
 
-};
-
-stepReveal7.onclick = function () {
-    hide(stepHide7);
-    hide(stepHide7a);
-    show(stepAnswer7);
+$('#stepReveal7').click(function () {
 
     var explanationText = "";
     if (dataGradation == "none") {
@@ -771,42 +633,45 @@ stepReveal7.onclick = function () {
         explanationText = "This word will undergo the <b>" + dataGradation + "</b> gradation.";
     };
 
-    stepExplanation7.innerHTML = explanationText;
+    $('#stepHide7').hide();
+    $('#stepHide7a').hide();
+    $('#stepAnswer7').show();
+    $('#stepExplanation7').show();
+    $('#stepExplanation7').html(explanationText);
 
-
-};
+});
 
 
 function partitiveHelp() {
 
-    if (stepHelpButton5.name == "status 2") {
+    if ($('#stepHelpButton5').name == "status 2") {
 
         document.getElementById("ending-" + dataCase).className = "warning";
-        stepExplanation5.innerHTML = "The row with the right ending for the <i>" + dataCase + "</i> is highlighted is the table. If you need more help, use the help button again.";
-        stepHelpButton5.name = "status 3";
+        $('#stepExplanation5').html("The row with the right ending for the <i>" + dataCase + "</i> is highlighted is the table. If you need more help, use the help button again.");
+        $('stepHelpButton5').name = "status 3";
 
-    } else if (stepHelpButton5.name == "status 3") {
+    } else if ($('#stepHelpButton5').name == "status 3") {
         hideAllTables();
-        show(tableCaseEndings);
-        show(tablePartitive);
-        stepExplanation5.innerHTML = "It's a little tricky when it comes to the <i>partitive</i> endings. The rules are now on the right side. Try to see if you can find the right ending."
-        stepHelpButton5.innerHTML = "No, more help needed!";
-        stepHelpButton5.name = "status 4";
+        $('#tableCaseEndings').show();
+        $('#tablePartitive').show();
+        $('#stepExplanation5').html("It's a little tricky when it comes to the <i>partitive</i> endings. The rules are now on the right side. Try to see if you can find the right ending.");
+        $('#stepHelpButton5').html("No, more help needed!");
+        $('#stepHelpButton5').name = "status 4";
 
-    } else if (stepHelpButton5.name == "status 4") {
+    } else if ($('#stepHelpButton5').name == "status 4") {
 
-        hide(stepHelpButton5);
-        hide(stepHide5);
-        hide(stepHide5a);
-        show(stepAnswer5);
-        stepExplanation5.innerHTML = "The endings for the <i>partitive</i> for " + dataStemHighlighted + " is <b>" + dataEndings + "</b> because " + dataReason + ".";
+        $('#stepHelpButton5').hide();
+        $('#stepHide5').hide();
+        $('#stepHide5a').hide();
+        $('#stepAnswer5').show();
+        $('#stepExplanation5').html("The endings for the <i>partitive</i> for " + dataStemHighlighted + " is <b>" + dataEndings + "</b> because " + dataReason + ".");
 
     } else {
 
         hideAllTables();
-        show(tableCaseEndings);
-        stepExplanation5.innerHTML = "On the right you can see a list of the different cases with their endings. This should help.";
-        stepHelpButton5.name = "status 2";
+        $('#tableCaseEndings').show();
+        $('#stepExplanation5').html("On the right you can see a list of the different cases with their endings. This should help.");
+        $('#stepHelpButton5').name = "status 2";
 
     };
 
@@ -814,33 +679,35 @@ function partitiveHelp() {
 
 function illativeHelp() {
 
-    if (stepHelpButton5.name == "status 2") {
+    if ($('#stepHelpButton5').name == "status 2") {
 
         document.getElementById("ending-" + dataCase).className = "warning";
-        stepExplanation5.innerHTML = "The row with the right ending for the <i>" + dataCase + "</i> is highlighted is the table. If you need more help, use the help button again.";
-        stepHelpButton5.name = "status 3";
+        $('#stepExplanation5').html("The row with the right ending for the <i>" + dataCase + "</i> is highlighted is the table. If you need more help, use the help button again.");
+        $('stepHelpButton5').name = "status 3";
 
-    } else if (stepHelpButton5.name == "status 3") {
+    } else if ($('#stepHelpButton5').name == "status 3") {
+
         hideAllTables();
-        show(tableCaseEndings);
-        show(tableIllative);
-        stepExplanation5.innerHTML = "It's a little tricky when it comes to the <i>illative</i> endings. The rules are now on the right side. Try to see if you can find the right ending."
-        stepHelpButton5.innerHTML = "No, more help needed!";
-        stepHelpButton5.name = "status 4";
+        $('#tableCaseEndings').show();
+        $('#tableIllative').show();
+        $('#stepExplanation5').html("It's a little tricky when it comes to the <i>illative</i> endings. The rules are now on the right side. Try to see if you can find the right ending.");
+        $('#stepHelpButton5').html("No, more help needed!");
+        $('#stepHelpButton5').name = "status 4";
 
-    } else if (stepHelpButton5.name == "status 4") {
+    } else if ($('#stepHelpButton5').name == "status 4") {
 
-        hide(stepHelpButton5);
-        hide(stepHide5);
-        hide(stepHide5a);
-        show(stepAnswer5);
-        stepExplanation5.innerHTML = "The endings for the <i>illative</i> for " + dataStemHighlighted + " is <b>" + dataEndings + "</b> because " + dataReason + ".";
+        $('#stepHelpButton5').hide();
+        $('#stepHide5').hide();
+        $('#stepHide5a').hide();
+        $('#stepAnswer5').show();
+        $('#stepExplanation5').html("The endings for the <i>illative</i> for " + dataStemHighlighted + " is <b>" + dataEndings + "</b> because " + dataReason + ".");
 
     } else {
+
         hideAllTables();
-        show(tableCaseEndings);
-        stepExplanation5.innerHTML = "On the right you can see a list of the different cases with their endings. This should help.";
-        stepHelpButton5.name = "status 2";
+        $('#tableCaseEndings').show();
+        $('#stepExplanation5').html("On the right you can see a list of the different cases with their endings. This should help.");
+        $('#stepHelpButton5').name = "status 2";
 
     };
 
@@ -849,17 +716,18 @@ function illativeHelp() {
 
 function otherCasesHelp() {
 
-    if (stepHelpButton5.name == "status 2") {
+    if ($('#stepHelpButton5').name == "status 2") {
 
         document.getElementById("ending-" + dataCase).className = "warning";
-        stepExplanation5.innerHTML = "The row with the right ending for the <i>" + dataCase + "</i> is highlighted is the table. If that's not enough, use the reveal <i class='eye slash icon'></i> button.";
-        hide(stepHelpButton5);
+        $('#stepExplanation5').html("The row with the right ending for the <i>" + dataCase + "</i> is highlighted is the table. If that's not enough, use the reveal <i class='eye slash icon'></i> button.");
+        $('stepHelpButton5').hide();
 
     } else {
+
         hideAllTables();
-        show(tableCaseEndings);
-        stepExplanation5.innerHTML = "On the right you can see a list of the different cases with their endings. This should help.";
-        stepHelpButton5.name = "status 2";
+        $('#tableCaseEndings').show();
+        $('#stepExplanation5').html("On the right you can see a list of the different cases with their endings. This should help.");
+        $('#stepHelpButton5').name = "status 2";
 
     };
 
@@ -867,82 +735,64 @@ function otherCasesHelp() {
 
 function hideAllTables() {
 
-    hide(tableCaseEndings);
-    hide(tableCons);
-    hide(tableIllative);
-    hide(tablePartitive);
-    hide(tableStems);
-    hide(tableVocal1);
-    hide(tableVocal2);
-    hide(tableCaseMeaning);
+    $('#tableCaseEndings').hide();
+    $('#tableCons').hide();
+    $('#tableIllative').hide();
+    $('#tablePartitive').hide();
+    $('#tableStems').hide();
+    $('#tableVocal1').hide();
+    $('#tableVocal2').hide();
+    $('#tableCaseMeaning').hide();
 
 };
 
 
+$('#trainerButton').click(function () {
 
+    if ($('#inputField').val() == dataResult) {
 
-
-
-
-trainerButton.onclick = function () {
-
-
-    if (inputField.value == dataResult) {
-
-        $('#correctModal')
-            .modal('show');
+        $('#correctModal').modal('show');
 
     };
+});
 
+$('#modalButton').click(function () {
 
-
-
-};
-
-modalButton.onclick = function () {
-
-    console.log("modalclicked");
-
-    $('#correctModal')
-        .modal('hide');
-
-};
-
-
-inputField.addEventListener("keypress", function (event) {
-
-    if (event.key === "Enter") {
-        event.preventDefault();
-        trainerButton.click();
-    }
+    $('#correctModal').modal('hide');
 
 });
 
 
-menuTrainer.onclick = function () {
+$('#inputField').keypress(function (e) {
+    if (e.which == 13) {
+        $('#trainerButton').click();
+    }
+});
 
-    show(gridTrainer);
+$('#menuTrainer').click(function () {
+
+    $('gridTrainer').show();
     trainer1();
 
-};
+});
 
-menuHome.onclick = function () {
+$('#menuHome').click(function () {
 
-    hide(gridTrainer);
+    $('gridTrainer').show();
     home();
 
-};
+});
 
 
 function reset(element) {
-    console.log(element);
-    element.innerHTML = "";
-    element.style.display = 'none';
+    var id = "#" + element;
+    $(id).html = "";
+    $(id).hide();
 };
 
 function resetAll() {
 
-    var elements = [mainText, helperText, tableStems, tableCaseEndings, tableVocal1, tableVocal2, tableCons, gridTrainer, trainerText, inputField, trainerButton, stepAnswer1, stepPrompt1, stepInput1, stepExplanation1, stepConfirmButton1, stepAnswer2, stepPrompt2, stepInput2, stepHelpButton2, stepExplanation2, stepReveal2, stepConfirmButton2, stepHide1, stepHide1a, stepHide2, stepHide2a, stepAnswer3, stepPrompt3, stepInput3a, stepInput3b, stepHelpButton3, stepExplanation3, stepReveal3, stepHide3, stepConfirmButton3, stepHide3a, stepAnswer4, stepPrompt4, stepInput4, stepHelpButton4, stepExplanation4, stepReveal4, stepHide4, stepConfirmButton4, stepHide4a, stepAnswer5, stepPrompt5, stepInput5, stepHelpButton5, stepExplanation5, stepReveal5, stepHide5, stepConfirmButton5, stepHide5a, tablePartitive, tableIllative, stepAnswer6, stepPrompt6, stepInput6, stepHelpButton6, stepExplanation6, stepReveal6, stepHide6, stepConfirmButton6, stepHide6a, stepAnswer7, stepPrompt7, stepInput7, stepHelpButton7, stepExplanation7, stepReveal7, stepHide7, stepConfirmButton7, stepHide7a, accordion, tableCaseMeaning];
+    var elements = ["mainText", "helperText", "tableStems", "tableCaseEndings", "tableVocal1", "tableVocal2", "tableCons", "gridTrainer", "trainerText", "inputField", "trainerButton", "stepAnswer1", "stepPrompt1", "stepInput1", "stepExplanation1", "stepConfirmButton1", "stepAnswer2", "stepPrompt2", "stepInput2", "stepHelpButton2", "stepExplanation2", "stepReveal2", "stepConfirmButton2", "stepHide1", "stepHide1a", "stepHide2", "stepHide2a", "stepAnswer3", "stepPrompt3", "stepInput3a", "stepInput3b", "stepHelpButton3", "stepExplanation3", "stepReveal3", "stepHide3", "stepConfirmButton3", "stepHide3a", "stepAnswer4", "stepPrompt4", "stepInput4", "stepHelpButton4", "stepExplanation4", "stepReveal4", "stepHide4", "stepConfirmButton4", "stepHide4a", "stepAnswer5", "stepPrompt5", "stepInput5", "stepHelpButton5", "stepExplanation5", "stepReveal5", "stepHide5", "stepConfirmButton5", "stepHide5a", "tablePartitive", "tableIllative", "stepAnswer6", "stepPrompt6", "stepInput6", "stepHelpButton6", "stepExplanation6", "stepReveal6", "stepHide6", "stepConfirmButton6", "stepHide6a", "stepAnswer7", "stepPrompt7", "stepInput7", "stepHelpButton7", "stepExplanation7", "stepReveal7", "stepHide7", "stepConfirmButton7", "stepHide7a", "accordion", "tableCaseMeaning"];
 
     elements.forEach(reset);
 
