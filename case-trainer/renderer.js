@@ -14,7 +14,7 @@ $.getJSON('test.json', function (jsonData) {
 
     });
 
-    index_number = getRandomInt(0, data.length);
+    index_number = getRandomInt(0, data.length - 1);
 
 });
 
@@ -57,6 +57,7 @@ function trainer1() {
 
     console.log(data);
 
+    $('#gridTrainer').show();
     $('#inputField').show();
     $('#trainerButton').show();
     $('#accordion').show();
@@ -70,16 +71,20 @@ function trainer1() {
 
     $('#stepAnswer1').html(data[index_number].WordFinnish);
     $('#stepPrompt1').html("Do you know the Finnish word that means <b><i>" + data[index_number].WordEnglish + "</i></b>? If you do, try to type it here. If you need help, use the button.");
+    $('#stepPrompt1').show();
+    console.log("here it shoudld show");
 
     /// CASE
 
     $('#stepAnswer2').html(data[index_number].Case);
     $('#stepPrompt2').html("So we are trying to say <i><b>" + data[index_number].Phrase + "</b></i> in Finnish.<br/><br/> What case should you use to translate <i>" + data[index_number].CaseTranslation + "</i>?<br/><br/>If you need help, use the button.");
+    $('#stepPrompt2').show();
 
     /// STEMS
 
     $('#stepAnswer3').html(data[index_number].Stem1 + " / " + data[index_number].Stem2);
     $('#stepPrompt3').html("What are the stems for the word we're working with? If you know them, type them below. If not, you can always use the help button.<br/><br/>");
+    $('#stepPrompt3').show();
 
     /// RIGHT STEM
 
@@ -93,10 +98,11 @@ function trainer1() {
     };
 
     $('#stepPrompt4').html("Now an easy part: which of the two stems should you use in this case?");
+    $('#stepPrompt4').show();
 
     /// ENDINGS
 
-    const caseEndings = [["nominative", "-"], ["accusative", "-n"], ["genitive", "-n"], ["inessive", "-ssa/ssä"], ["elative", "-sta/stä"], ["adessive", "-lla/llä"], ["ablative", "-lta/ltä"], ["allative", "-lle"], ["essive", "-na/nä"], ["translative", "-ksi"]];
+    var caseEndings = [["nominative", "-"], ["accusative", "-n"], ["genitive", "-n"], ["inessive", "-ssa/ssä"], ["elative", "-sta/stä"], ["adessive", "-lla/llä"], ["ablative", "-lta/ltä"], ["allative", "-lle"], ["essive", "-na/nä"], ["translative", "-ksi"]];
     var rightEnding = "";
 
     if (data[index_number].Case == "partitive" || data[index_number].Case == "illative") {
@@ -115,16 +121,19 @@ function trainer1() {
 
     $('#stepAnswer5').html(rightEnding);
     $('#stepPrompt5').html("Let's now choose the right endings for that word in that case. As always, help is only one click away.");
+    $('#stepPrompt5').show();
 
     /// VOCAL HARMONY
 
     $('#stepAnswer6').html(data[index_number].EndingsFinal);
     $('#stepPrompt6').html("By now you should know what set of ending you're going to use, but this set may contain 2 different versions or a vowel that needs to be define. Try to type the actual ending:<br/><br/>");
+    $('#stepPrompt6').show();
 
     /// FINDING CONSONANT GRADATION
 
     $('#stepAnswer7').html(data[index_number].Gradation);
     $('#stepPrompt7').html("So you have a stem and and ending. Combined together they give <b>*" + $('#stepAnswer4').html().slice(0, -1) + $('#stepAnswer6').html().slice(1) + "</b><br/><br/>I put a little * before to remind you this word might not exist like that.<br/><br/>What consonant gradation (if any) applies here?<br/><br/>");
+    $('#stepPrompt7').show();
 
 };
 
@@ -438,6 +447,7 @@ $('#stepHelpButton2').click(function () {
 
     hideAllTables();
     $('#tableCaseMeaning').show();
+    $('#stepExplanation2').show();
     $('#stepExplanation2').html("I have opened a list of cases with their basic meanings on the right. Try to choose the right one with the help of the table.<br/><br/> If you're still having issues, the reveal <i class='eye slash icon'></i> button is there for you.");
     $('#stepHelpButton2').hide();
 });
@@ -448,6 +458,7 @@ $('#stepHelpButton3').click(function () {
 
     if ($('#stepHelpButton3').attr('name') == "status 2") {
 
+        $('#stepExplanation3').show();
         $('#stepExplanation3').html("Because <i>" + data[index_number].WordFinnishHighlighted + "</i> " + data[index_number].TypeReason + ", it belongs to group " + data[index_number].Type + ". I have highlighted it in the table. Does that help?)");
         document.getElementById("type" + data[index_number].Type).className = "warning";
         $('#stepHelpButton3').html("I still need help");
@@ -455,11 +466,13 @@ $('#stepHelpButton3').click(function () {
 
     } else if ($('#stepHelpButton3').attr('name') == "status 3") {
 
+        $('#stepExplanation3').show();
         $('#stepExplanation3').html("So for this type, " + data[index_number].TypeExplanation + ".<br/><br/>Try again typing the stems or use the reveal <i class='eye slash icon'></i> button.");
         $('#stepHelpButton3').hide();
 
     } else {
 
+        $('#stepExplanation3').show();
         $('#stepExplanation3').html("On the right you can have a look at the different types of words and try to find the one that matches here. Then, try to type the stems again.<br/><br/>If you need more help, press the help button again.");
         $('#stepHelpButton3').html("I need more help");
         $('#stepHelpButton3').attr('name', "status 2");
@@ -474,11 +487,13 @@ $('#stepHelpButton4').click(function () {
 
     if (data[index_number].Case == "partitive") {
 
+        $('#stepExplanation4').show();
         $('#stepExplanation4').html("The partitive is the only case that uses stem 2... That should help!");
         $('#stepHelpButton4').hide();
 
     } else {
 
+        $('#stepExplanation4').show();
         $('#stepExplanation4').html("All cases except the partitive use stem 1. Does that help?");
         $('#stepHelpButton4').hide();
 
@@ -514,13 +529,14 @@ $('#stepHelpButton7').click(function () {
 
     if ($('#stepHelpButton7').attr('name') == "status 2") {
 
-
+        $('#stepExplanation7').show();
         $('#stepExplanation7').html("First, check the status of the last syllable of the stem. Does it goes open > closed, closed > open or remains the same?<br/><br/>If it changes, the consonant(s) right before that syllable change from one column to the other in the same order.");
         $('#stepHelpButton7').html("I'm still not sure");
         $('#stepHelpButton7').attr('name', "status 3");
 
     } else if ($('#stepHelpButton7').attr('name') == "status 3") {
 
+        $('#stepExplanation7').show();
         $('#stepExplanation7').html("Ok, so the stem is <i>" + $('#stepAnswer4').html() + "</i> and the stem+ending is *<i>" + $('#stepAnswer4').html().slice(0, -1) + $('#stepAnswer6').html().slice(1) + "</i>.<br/><br/>We cut them in syllables:<br/><br/>" + data[index_number].StemCut + " and " + data[index_number].BeforeGradationCut + "<br/><br/>Then we look at the last syllable from the stem:<br/><br/> " + data[index_number].StemCutUnderlined + " and " + data[index_number].BeforeGradationCutUnderlined + "<br/><br/>The first one is <b>" + data[index_number].StemSyllable + "</b> and is <i>" + data[index_number].StemSyllableStatus + "</i> and the second one is <b>" + data[index_number].BeforeGradationSyllable + "</b> and is <i>" + data[index_number].BeforeGradationSyllableStatus + "</i>.<br/><br/>So from Stem > Word the syllable goes <i>" + data[index_number].StemSyllableStatus + " > " + data[index_number].BeforeGradationSyllableStatus + "</i><br/><br/>The consonant(s) right before that syllable is <b>" + data[index_number].ConsonantBefore + "</b> and it needs to also change from <i>" + data[index_number].StemSyllableStatus + " > " + data[index_number].BeforeGradationSyllableStatus + "</i><br/><br/>In the table you can see that a <b>" + data[index_number].ConsonantBefore + "</b> in an <i>" + data[index_number].StemSyllableStatus + " syllable</i> corresponds to a <b>" + data[index_number].ConsonantAfter + "</b> in a <i>" + data[index_number].BeforeGradationSyllableStatus + " syllable</i><br/><br/>So in this case you need to apply <b>" + data[index_number].Gradation + "</b>");
         $('#stepHelpButton7').hide();
 
@@ -528,6 +544,7 @@ $('#stepHelpButton7').click(function () {
 
         hideAllTables();
         $('#tableCons').show();
+        $('#stepExplanation7').show();
         $('#stepExplanation7').html("The table on the right lists the different types of consonant gradation. Doesn't that help you?");
         $('#stepHelpButton7').attr('name', "status 2");
         $('#stepHelpButton7').html("I need more help!");
@@ -632,6 +649,7 @@ function partitiveHelp() {
     if ($('#stepHelpButton5').attr('name') == "status 2") {
 
         document.getElementById("ending-" + data[index_number].Case).className = "warning";
+        $('#stepExplanation5').show();
         $('#stepExplanation5').html("The row with the right ending for the <i>" + data[index_number].Case + "</i> is highlighted is the table. If you need more help, use the help button again.");
         $('#stepHelpButton5').attr('name', "status 3");
 
@@ -639,6 +657,7 @@ function partitiveHelp() {
         hideAllTables();
         $('#tableCaseEndings').show();
         $('#tablePartitive').show();
+        $('#stepExplanation5').show();
         $('#stepExplanation5').html("It's a little tricky when it comes to the <i>partitive</i> endings. The rules are now on the right side. Try to see if you can find the right ending.");
         $('#stepHelpButton5').html("No, more help needed!");
         $('#stepHelpButton5').attr('name', "status 4");
@@ -649,12 +668,14 @@ function partitiveHelp() {
         $('#stepHide5').hide();
         $('#stepHide5a').hide();
         $('#stepAnswer5').show();
+        $('#stepExplanation5').show();
         $('#stepExplanation5').html("The endings for the <i>partitive</i> for " + data[index_number].StemHighlighted + " is <b>" + data[index_number].Endings + "</b> because " + data[index_number].Reason + ".");
 
     } else {
 
         hideAllTables();
         $('#tableCaseEndings').show();
+        $('#stepExplanation5').show();
         $('#stepExplanation5').html("On the right you can see a list of the different cases with their endings. This should help.");
         $('#stepHelpButton5').attr('name', "status 2");
 
@@ -667,6 +688,7 @@ function illativeHelp() {
     if ($('#stepHelpButton5').attr('name') == "status 2") {
 
         document.getElementById("ending-" + data[index_number].Case).className = "warning";
+        $('#stepExplanation5').show();
         $('#stepExplanation5').html("The row with the right ending for the <i>" + data[index_number].Case + "</i> is highlighted is the table. If you need more help, use the help button again.");
         $('#stepHelpButton5').attr('name', "status 3");
 
@@ -675,6 +697,7 @@ function illativeHelp() {
         hideAllTables();
         $('#tableCaseEndings').show();
         $('#tableIllative').show();
+        $('#stepExplanation5').show();
         $('#stepExplanation5').html("It's a little tricky when it comes to the <i>illative</i> endings. The rules are now on the right side. Try to see if you can find the right ending.");
         $('#stepHelpButton5').html("No, more help needed!");
         $('#stepHelpButton5').attr('name', "status 4");
@@ -685,12 +708,14 @@ function illativeHelp() {
         $('#stepHide5').hide();
         $('#stepHide5a').hide();
         $('#stepAnswer5').show();
+        $('#stepExplanation5').show();
         $('#stepExplanation5').html("The endings for the <i>illative</i> for " + data[index_number].StemHighlighted + " is <b>" + data[index_number].Endings + "</b> because " + data[index_number].Reason + ".");
 
     } else {
 
         hideAllTables();
         $('#tableCaseEndings').show();
+        $('#stepExplanation5').show();
         $('#stepExplanation5').html("On the right you can see a list of the different cases with their endings. This should help.");
         $('#stepHelpButton5').attr('name', "status 2");
 
@@ -704,6 +729,7 @@ function otherCasesHelp() {
     if ($('#stepHelpButton5').attr('name') == "status 2") {
 
         document.getElementById("ending-" + data[index_number].Case).className = "warning";
+        $('#stepExplanation5').show();
         $('#stepExplanation5').html("The row with the right ending for the <i>" + data[index_number].Case + "</i> is highlighted is the table. If that's not enough, use the reveal <i class='eye slash icon'></i> button.");
         $('#stepHelpButton5').hide();
 
@@ -711,6 +737,7 @@ function otherCasesHelp() {
 
         hideAllTables();
         $('#tableCaseEndings').show();
+        $('#stepExplanation5').show();
         $('#stepExplanation5').html("On the right you can see a list of the different cases with their endings. This should help.");
         $('#stepHelpButton5').attr('name', "status 2");
 
@@ -734,9 +761,16 @@ function hideAllTables() {
 
 $('#trainerButton').click(function () {
 
+    /// RIGHT ANSWER
+
     if ($('#inputField').val() == data[index_number].Result) {
 
         $('#correctModal').modal('show');
+
+    } else {
+
+        // WRONG ANSWER
+
 
     };
 });
@@ -744,6 +778,9 @@ $('#trainerButton').click(function () {
 $('#modalButton').click(function () {
 
     $('#correctModal').modal('hide');
+    resetTrainerData();
+    index_number = getRandomInt(0, data.length - 1);
+    trainer1();
 
 });
 
@@ -780,5 +817,71 @@ function resetAll() {
     var elements = ["mainText", "helperText", "tableStems", "tableCaseEndings", "tableVocal1", "tableVocal2", "tableCons", "gridTrainer", "trainerText", "inputField", "trainerButton", "stepAnswer1", "stepPrompt1", "stepInput1", "stepExplanation1", "stepConfirmButton1", "stepAnswer2", "stepPrompt2", "stepInput2", "stepHelpButton2", "stepExplanation2", "stepReveal2", "stepConfirmButton2", "stepHide1", "stepHide1a", "stepHide2", "stepHide2a", "stepAnswer3", "stepPrompt3", "stepInput3a", "stepInput3b", "stepHelpButton3", "stepExplanation3", "stepReveal3", "stepHide3", "stepConfirmButton3", "stepHide3a", "stepAnswer4", "stepPrompt4", "stepInput4", "stepHelpButton4", "stepExplanation4", "stepReveal4", "stepHide4", "stepConfirmButton4", "stepHide4a", "stepAnswer5", "stepPrompt5", "stepInput5", "stepHelpButton5", "stepExplanation5", "stepReveal5", "stepHide5", "stepConfirmButton5", "stepHide5a", "tablePartitive", "tableIllative", "stepAnswer6", "stepPrompt6", "stepInput6", "stepHelpButton6", "stepExplanation6", "stepReveal6", "stepHide6", "stepConfirmButton6", "stepHide6a", "stepAnswer7", "stepPrompt7", "stepInput7", "stepHelpButton7", "stepExplanation7", "stepReveal7", "stepHide7", "stepConfirmButton7", "stepHide7a", "accordion", "tableCaseMeaning"];
 
     elements.forEach(reset);
+
+};
+
+function resetTrainerData() {
+
+    hideAllTables();
+
+    $('#trainerText').html("");
+    $('#inputField').val("").change();
+
+    $('#stepAnswer1').hide();
+    $('#stepAnswer2').hide();
+    $('#stepAnswer3').hide();
+    $('#stepAnswer4').hide();
+    $('#stepAnswer5').hide();
+    $('#stepAnswer6').hide();
+    $('#stepAnswer7').hide();
+
+    $('#stepHide1').show();
+    $('#stepHide1a').show();
+    $('#stepHide2').show();
+    $('#stepHide2a').show();
+    $('#stepHide3').show();
+    $('#stepHide3a').show();
+    $('#stepHide4').show();
+    $('#stepHide41a').show();
+    $('#stepHide5').show();
+    $('#stepHide5a').show();
+    $('#stepHide6').show();
+    $('#stepHide6a').show();
+    $('#stepHide7').show();
+    $('#stepHide7a').show();
+
+    $('#stepExplanation1').hide();
+    $('#stepExplanation2').hide();
+    $('#stepExplanation3').hide();
+    $('#stepExplanation4').hide();
+    $('#stepExplanation5').hide();
+    $('#stepExplanation6').hide();
+    $('#stepExplanation7').hide();
+
+    $('#stepHelpButton1').show();
+    $('#stepHelpButton2').show();
+    $('#stepHelpButton3').show();
+    $('#stepHelpButton4').show();
+    $('#stepHelpButton5').show();
+    $('#stepHelpButton6').show();
+    $('#stepHelpButton7').show();
+
+    $('#stepHelpButton1').attr('name', "status 1");
+    $('#stepHelpButton2').attr('name', "status 1");
+    $('#stepHelpButton3').attr('name', "status 1");
+    $('#stepHelpButton4').attr('name', "status 1");
+    $('#stepHelpButton5').attr('name', "status 1");
+    $('#stepHelpButton6').attr('name', "status 1");
+    $('#stepHelpButton7').attr('name', "status 1");
+
+    $('.ui.accordion').accordion('close', 1);
+    $('.ui.accordion').accordion('close', 2);
+    $('.ui.accordion').accordion('close', 3);
+    $('.ui.accordion').accordion('close', 4);
+    $('.ui.accordion').accordion('close', 5);
+    $('.ui.accordion').accordion('close', 6);
+    $('.ui.accordion').accordion('close', 7);
+
+    $('.warning').removeClass("warning");
 
 };

@@ -102,7 +102,7 @@ var datajson = [{
         "dataReason": "the stem ends in -C",
         "dataStemHighlighted": "kä<b>t</b>-",
         "dataEndingsFinal": "-tä",
-        "dataGradation": "t → d",
+        "dataGradation": "none",
         "dataStemCut": "|kät|-",
         "dataBeforeGradationCut": "*|kät|tä|",
         "dataStemCutUnderlined": "|<u>kät</u>|-",
