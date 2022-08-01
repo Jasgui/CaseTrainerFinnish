@@ -10,6 +10,8 @@ var index_number = 0;
 
 $.getJSON('data.json', function (jsonData) {
 
+    console.log(jsonData);
+
     jsonData.data.forEach(function (current_item) {
 
         if (current_item.Case == "partitive") {

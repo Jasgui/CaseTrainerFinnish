@@ -140,5 +140,34 @@
             "BeforeGradationSyllableStatus": "open",
             "ConsonantBefore": "",
             "ConsonantAfter": ""
-    }]
+    }, {
+            "Index": 6,
+            "WordFinnishHighlighted": "tuol<b>i</b>",
+            "WordEnglish": "a table",
+            "Result": "tuolilla",
+            "Phrase": "on the table",
+            "Case": "adessive",
+            "CaseTranslation": "on ...",
+            "Stem1": "tuoli-",
+            "Stem2": "tuoli-",
+            "TypeReason": "ends in <b>i</b> but is a recent word",
+            "Type": "2",
+            "TypeExplanation": "stem 1 and stem 2 are the same and they are basically the same as the nominative as well",
+            "Endings": "-lla/llä",
+            "Reason": "",
+            "StemHighlighted": "",
+            "EndingsFinal": "-lla",
+            "Gradation": "none",
+            "StemCut": "|tuo|li|-",
+            "BeforeGradationCut": "*|tuo|lil|la",
+            "StemCutUnderlined": "|tuo|<u>li</u>|-",
+            "BeforeGradationCutUnderlined": "*|tuo|<u>lil</u>|la",
+            "StemSyllable": "|li|",
+            "StemSyllableStatus": "open",
+            "BeforeGradationSyllable": "|lil|",
+            "BeforeGradationSyllableStatus": "open",
+            "ConsonantBefore": "",
+            "ConsonantAfter": ""
+    }
+    ]
 }
