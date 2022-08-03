@@ -7,17 +7,22 @@ const vowels = ["a", "ä", "e", "i", "o", "ö", "u", "y"];
 
 var data = [];
 var index_number = 0;
+var countSyllable = 0;
 
 $.getJSON('data.json', function (jsonData) {
 
 
     jsonData.data.forEach(function (current_item) {
 
+        /// GETTING .RightStem
+
         if (current_item.Case == "partitive") {
             current_item.RightStem = current_item.Stem2;
         } else {
             current_item.RightStem = current_item.Stem1;
         }
+
+        /// GETTING .TextBefore
 
         let possibleTextBefore = /(.+)<b>/.exec(current_item.Result);
         if (possibleTextBefore != null) {
@@ -26,6 +31,9 @@ $.getJSON('data.json', function (jsonData) {
         } else {
             current_item.TextBefore = "";;
         };
+
+        /// GETTING .TextAfter
+
         let possibleTextAfter = /<\/b>(.+)/.exec(current_item.Result);
         if (possibleTextAfter != null) {
             current_item.TextAfter = possibleTextAfter[1];
@@ -34,16 +42,48 @@ $.getJSON('data.json', function (jsonData) {
             current_item.TextAfter = "";;
         };
 
+        /// GETTING .Result
+
         let possibleResult = /<b>(.+)<\/b>/.exec(current_item.Result);
         if (possibleResult != null) {
             current_item.Result = possibleResult[1];
 
         };
 
+        /// GETTING .WordFinnish
+
         current_item.WordFinnish = get_dataWordFinnish_from_dataWordFinnishHighlighted(current_item.WordFinnishHighlighted);
+
+        /// GETTING .StemCut & .StemCutUnderlined & .StemSyllable & .StemSyllableStatus
+
+        current_item.StemCut = get_dataStemCut_from_dataRightStem(current_item.RightStem)[0];
+        current_item.StemCutUnderlined = get_dataStemCut_from_dataRightStem(current_item.RightStem)[1];
+        current_item.StemSyllable = get_dataStemCut_from_dataRightStem(current_item.RightStem)[2];
+        current_item.StemSyllableStatus = get_dataStemCut_from_dataRightStem(current_item.RightStem)[3];
+
+
+        /// GETTING .BeforeGradationCut & .BeforeGradationCutUnderlined & .BeforeGradationSyllable & .BeforeGradationSyllableStatus
+
+        current_item.BeforeGradationCut = get_dataBeforeGradationCut_from_dataRightStem_and_dataEndingsFinal(current_item.RightStem, current_item.EndingsFinal)[0];
+        current_item.BeforeGradationCutUnderlined = get_dataBeforeGradationCut_from_dataRightStem_and_dataEndingsFinal(current_item.RightStem, current_item.EndingsFinal)[1];
+        current_item.BeforeGradationSyllable = get_dataBeforeGradationCut_from_dataRightStem_and_dataEndingsFinal(current_item.RightStem, current_item.EndingsFinal)[2];
+        current_item.BeforeGradationSyllableStatus = get_dataBeforeGradationCut_from_dataRightStem_and_dataEndingsFinal(current_item.RightStem, current_item.EndingsFinal)[3];
+
+        /// GETTING .ConsonantBefore & .ConsonantAfter
+
+        if (current_item.Gradation != "none") {
+            current_item.ConsonantBefore = get_dataConsonantBefore_and_After_from_Gradation(current_item.Gradation)[0];
+            current_item.ConsonantAfter = get_dataConsonantBefore_and_After_from_Gradation(current_item.Gradation)[1];
+        } else {
+            current_item.ConsonantBefore = "";
+            current_item.ConsonantAfter = "";
+        };
+
         data.push(current_item);
 
     });
+
+    console.log(data);
 
     index_number = getRandomInt(0, data.length - 1);
 
@@ -83,6 +123,154 @@ function get_dataWordFinnish_from_dataWordFinnishHighlighted(text) {
 
 };
 
+function get_dataStemCut_from_dataRightStem(text) {
+
+    let stemSyllable = "";
+    let stemSyllableStatus = "";
+
+    let toCut = text.slice(0, -1);
+    var syllables = [];
+    var lastIndex = toCut.length + 1;
+    for (let i = toCut.length - 1; i > 0; i--) {
+
+
+        if (/[aäeioöuy]/.test(toCut[i]) == true && /[bcdfghjklmnpqrstvwxz]/.test(toCut[i - 1]) == true) {
+
+            syllables.push(toCut.slice(i - 1, lastIndex));
+            lastIndex = i - 1;
+
+        } else if (/[aäeioöuy]/.test(toCut[i]) == true && /[aäeioöuy]/.test(toCut[i - 1]) == true) {
+
+            if (checkForDiphthong(toCut[i], toCut[i - 1])) {
+
+            } else {
+                syllables.push(toCut.slice(i, lastIndex));
+                lastIndex = i;
+            };
+        };
+
+    };
+
+    var wordCut1 = "|";
+    for (let i = syllables.length - 1; i >= 0; i--) {
+        wordCut1 += syllables[i] + "|";
+    };
+
+    wordCut1 += "-";
+
+    var wordCut2 = "|";
+    countSyllable = syllables.length - 1;
+    for (let i = syllables.length - 1; i >= 0; i--) {
+
+        if (i == 0) {
+            wordCut2 += "<u>" + syllables[i] + "</u>|";
+            stemSyllable = syllables[i];
+        } else {
+            wordCut2 += syllables[i] + "|";
+        };
+    };
+
+    wordCut2 += "-";
+    if (/[aäeioöuy]/.test(stemSyllable.slice(-1)) == true) {
+        stemSyllableStatus = "open";
+    } else {
+        stemSyllableStatus = "closed";
+    };
+
+    stemSyllable = "|" + stemSyllable + "|";
+
+    let returnValue = [wordCut1, wordCut2, stemSyllable, stemSyllableStatus];
+
+
+    return (returnValue);
+
+};
+
+
+function get_dataBeforeGradationCut_from_dataRightStem_and_dataEndingsFinal(stem, ending) {
+
+    let beforeGradationSyllable = "";
+    let beforeGradationSyllableStatus = "";
+
+    let toCut = stem.slice(0, -1) + ending.slice(1);
+    var syllables = [];
+    var lastIndex = toCut.length + 1;
+    for (let i = toCut.length - 1; i > 0; i--) {
+
+        if (/[aäeioöuy]/.test(toCut[i]) == true && /[bcdfghjklmnpqrstvwxz]/.test(toCut[i - 1]) == true) {
+
+            syllables.push(toCut.slice(i - 1, lastIndex));
+            lastIndex = i - 1;
+
+        } else if (/[aäeioöuy]/.test(toCut[i]) == true && /[aäeioöuy]/.test(toCut[i - 1]) == true) {
+
+            if (checkForDiphthong(toCut[i], toCut[i - 1])) {
+
+            } else {
+                syllables.push(toCut.slice(i, lastIndex));
+                lastIndex = i;
+            };
+
+        };
+
+    };
+
+    var wordCut1 = "|";
+    for (let i = syllables.length - 1; i >= 0; i--) {
+
+        wordCut1 += syllables[i] + "|";
+
+    };
+
+    var count = 0
+    var wordCut2 = "|";
+    for (let i = syllables.length - 1; i >= 0; i--) {
+
+        if (count == countSyllable) {
+            wordCut2 += "<u>" + syllables[i] + "</u>|";
+            count++;
+            beforeGradationSyllable = syllables[i];
+        } else {
+            wordCut2 += syllables[i] + "|";
+            count++;
+        };
+    };
+
+    wordCut2 = "*" + wordCut2 + "-";
+
+    if (/[aäeioöuy]/.test(beforeGradationSyllable.slice(-1)) == true) {
+        beforeGradationSyllableStatus = "open";
+    } else {
+        beforeGradationSyllableStatus = "closed";
+    };
+
+    beforeGradationSyllable = "|" + beforeGradationSyllable + "|";
+
+    let returnValue = [wordCut1, wordCut2, beforeGradationSyllable, beforeGradationSyllableStatus];
+
+    return (returnValue);
+
+};
+
+function checkForDiphthong(vowel1, vowel2) {
+
+    let diph = vowel2 + vowel1;
+    if (diph == "uo" || diph == "ai" || diph == "äi" || diph == "oi" || diph == "ei" || diph == "öi" || diph == "ui" || diph == "yi" || diph == "au" || diph == "ou" || diph == "eu" || diph == "iu" || diph == "äy" || diph == "ey" || diph == "öy" || diph == "iu" || diph == "ie" || diph == "yö" || diph == "aa" || diph == "ää" || diph == "ee" || diph == "ii" || diph == "oo" || diph == "öö" || diph == "uu" || diph == "yy") {
+        return (true);
+    } else {
+        return (false);
+    };
+
+};
+
+function get_dataConsonantBefore_and_After_from_Gradation(gradation) {
+
+    let consonantBefore = /(.*) →/.exec(gradation);
+    let consonantAfter = /→ (.*)/.exec(gradation);
+
+    return ([consonantBefore[1], consonantAfter[1]]);
+
+};
 
 function trainer() {
 
