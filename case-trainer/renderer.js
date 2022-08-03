@@ -10,7 +10,6 @@ var index_number = 0;
 
 $.getJSON('data.json', function (jsonData) {
 
-    console.log(jsonData);
 
     jsonData.data.forEach(function (current_item) {
 
@@ -19,6 +18,28 @@ $.getJSON('data.json', function (jsonData) {
         } else {
             current_item.RightStem = current_item.Stem1;
         }
+
+        let possibleTextBefore = /(.+)<b>/.exec(current_item.Result);
+        if (possibleTextBefore != null) {
+            current_item.TextBefore = possibleTextBefore[1];
+
+        } else {
+            current_item.TextBefore = "";;
+        };
+        let possibleTextAfter = /<\/b>(.+)/.exec(current_item.Result);
+        if (possibleTextAfter != null) {
+            current_item.TextAfter = possibleTextAfter[1];
+
+        } else {
+            current_item.TextAfter = "";;
+        };
+
+        let possibleResult = /<b>(.+)<\/b>/.exec(current_item.Result);
+        if (possibleResult != null) {
+            current_item.Result = possibleResult[1];
+
+        };
+
         current_item.WordFinnish = get_dataWordFinnish_from_dataWordFinnishHighlighted(current_item.WordFinnishHighlighted);
         data.push(current_item);
 
@@ -63,18 +84,24 @@ function get_dataWordFinnish_from_dataWordFinnishHighlighted(text) {
 };
 
 
-function trainer1() {
+function trainer() {
 
-    console.log(data);
 
     $('#gridTrainer').show();
-    $('#inputField').show();
+    $('#inputFieldContainer').show();
     $('#trainerButton').show();
     $('#accordion').show();
 
 
 
-    $('#trainerText').html("How would you say <b>" + data[index_number].Phrase + "</b> in Finnish?");
+    $('#trainerText').html("<span class='ui big black text'>How would you say <span class='ui info text'>" + data[index_number].Phrase + "</span> in Finnish?</span>");
+    $('#textBefore').html(data[index_number].TextBefore);
+    $('#textAfter').html(data[index_number].TextAfter);
+
+    $('#textBefore').show();
+    $('#textAfter').show();
+
+
     $('#inputField').focus();
 
     /// WORD
@@ -82,7 +109,6 @@ function trainer1() {
     $('#stepAnswer1').html(data[index_number].WordFinnish);
     $('#stepPrompt1').html("Do you know the Finnish word that means <b><i>" + data[index_number].WordEnglish + "</i></b>? If you do, try to type it here. If you need help, use the button.");
     $('#stepPrompt1').show();
-    console.log("here it shoudld show");
 
     /// CASE
 
@@ -448,7 +474,6 @@ $('#stepHelpButton2').click(function () {
 
 $('#stepHelpButton3').click(function () {
 
-    console.log($('#stepHelpButton3').name);
 
     if ($('#stepHelpButton3').attr('name') == "status 2") {
 
@@ -496,7 +521,6 @@ $('#stepHelpButton4').click(function () {
 
 $('#stepHelpButton5').click(function () {
 
-    console.log(data[index_number].Case);
 
     if (data[index_number].Case == "partitive") {
         partitiveHelp();
@@ -526,9 +550,6 @@ $('#stepHelpButton7').click(function () {
     var is_gradation = true;
 
 
-    console.log(data[index_number].RightStem.slice(0, -1));
-    console.log(pattern_vowels.test(data[index_number].RightStem.slice(0, -1)));
-    console.log(pattern_consonant.test(data[index_number].RightStem.slice(0, -1)));
 
 
     if (pattern_vowels.test(data[index_number].RightStem.slice(0, -1)) == true) {
@@ -813,7 +834,7 @@ $('#modalButton').click(function () {
     $('#correctModal').modal('hide');
     resetTrainerData();
     index_number = getRandomInt(0, data.length - 1);
-    trainer1();
+    trainer();
 
 });
 
@@ -827,7 +848,7 @@ $('#inputField').keypress(function (e) {
 $('#menuTrainer').click(function () {
 
     $('gridTrainer').show();
-    trainer1();
+    trainer();
 
 });
 

@@ -74,10 +74,20 @@
 
                     <div class="row">
                         <div class="left floated sixteen wide column">
-                            <div class="ui action huge input">
-                                <input type='text' placeholder="type here..." id="inputField" style='display:none'>
-                                <button class='ui teal button' id="trainerButton" style='display:none'>go!</button>
+
+                            <div class="ui compact message" id="inputFieldContainer" style='display:none'>
+
+                                <span class='ui large grey text' id='textBefore'>text before</span>
+
+                                <div class="ui action huge transparent input">
+                                    <input type='text' placeholder="..." id="inputField">
+                                </div>
+
+                                <span class='ui large grey text' id='textAfter'>text after</span>
                             </div>
+
+                            <button class='huge ui teal button' id="trainerButton" style='display:none'>go!</button>
+
                         </div>
                     </div>
 
