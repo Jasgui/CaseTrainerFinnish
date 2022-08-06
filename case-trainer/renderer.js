@@ -2,6 +2,7 @@
 
 ///Initialisation
 
+const consonantsThatGradate = ["pp", "tt", "kk", "p", "t", "k", "mp", "nt", "nk", "lt", "rt", "ht", "lk", "rk", "mpp", "ntt", "nkk", "rpp", "rtt", "rkk", "lp"];
 const consonants = ["b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "z"];
 const vowels = ["a", "ä", "e", "i", "o", "ö", "u", "y"];
 
@@ -78,6 +79,26 @@ $.getJSON('data.json', function (jsonData) {
             current_item.ConsonantBefore = "";
             current_item.ConsonantAfter = "";
         };
+
+        /// GETTING .ConsonantGradable
+
+        var consonantToTest = "";
+        var consonantGradates = false;
+        if (/(?<=[aeiouäöy])([^aeiouäöy]*)(?=[aäeiouöy]-)/.exec(current_item.RightStem) != null) {
+            console.log("checked");
+
+            consonantToTest = /(?<=[aeiouäöy])([^aeiouäöy]*)(?=[aäeiouöy]-)/.exec(current_item.RightStem)[1];
+
+            for (let i = 0; i < consonantsThatGradate.length; i++) {
+                if (consonantToTest == consonantsThatGradate[i]) {
+                    consonantGradates = true;
+                    break;
+                };
+            };
+
+            current_item.ConsonantGradates = consonantGradates;
+        };
+
 
         data.push(current_item);
 
@@ -273,6 +294,10 @@ function get_dataConsonantBefore_and_After_from_Gradation(gradation) {
 };
 
 function trainer() {
+
+    let testing = "tuoli-";
+    let testingResult = /(?<=[aeiouäöy])([^aeiouäöy]*)(?=[aäeiouöy]-)/.exec(testing);
+    console.log(testingResult);
 
 
     $('#gridTrainer').show();
@@ -666,7 +691,7 @@ $('#stepHelpButton3').click(function () {
     if ($('#stepHelpButton3').attr('name') == "status 2") {
 
         $('#stepExplanation3').show();
-        $('#stepExplanation3').html("Because <i>" + data[index_number].WordFinnishHighlighted + "</i> " + data[index_number].TypeReason + ", it belongs to group " + data[index_number].Type + ". I have highlighted it in the table. Does that help?)");
+        $('#stepExplanation3').html("Because <i>" + data[index_number].WordFinnishHighlighted + "</i> " + data[index_number].TypeReason + ", it belongs to group " + data[index_number].Type + ". I have highlighted it in the table. Does that help?");
         document.getElementById("type" + data[index_number].Type).className = "warning";
         $('#stepHelpButton3').html("I still need help");
         $('#stepHelpButton3').attr('name', "status 3");
@@ -737,25 +762,24 @@ $('#stepHelpButton7').click(function () {
     var noGradationText = "";
     var is_gradation = true;
 
-
-
-
     if (pattern_vowels.test(data[index_number].RightStem.slice(0, -1)) == true) {
 
-        noGradationText = "There is no gradation here because the stem ends in two vowels: " + data[index_number].RightStem.slice(0, -3) + "<b>" + data[index_number].RightStem.slice(-3) + "</b>";
+        $('#tableConsConditions').show();
+        noGradationText = "There can't be gradation here because the stem ends in two vowels: " + data[index_number].RightStem.slice(0, -3) + "<b>" + data[index_number].RightStem.slice(-3) + "</b>";
         is_gradation = false;
 
     } else if (pattern_consonant.test(data[index_number].RightStem.slice(0, -1)) == true) {
-
-        noGradationText = "There is no gradation here because the stem ends in a consonant: " + data[index_number].RightStem.slice(0, -2) + "<b>" + data[index_number].RightStem.slice(-2) + "</b>";
+        $('#tableConsConditions').show();
+        noGradationText = "There can't be gradation here because the stem ends in a consonant: " + data[index_number].RightStem.slice(0, -2) + "<b>" + data[index_number].RightStem.slice(-2) + "</b>";
         is_gradation = false;
-
     };
+
+
 
     if ($('#stepHelpButton7').attr('name') == "status 2") {
 
         $('#stepExplanation7').show();
-        $('#stepExplanation7').html("First, check the status of the last syllable of the stem. Does it goes open > closed, closed > open or remains the same?<br/><br/>If it changes, the consonant(s) right before that syllable change from one column to the other in the same order.");
+        $('#stepExplanation7').html("First, check is gradation is at all possible with the conditions on the right.<br/><br/>If it is, check the status of the last syllable of the stem. Does it goes open > closed, closed > open or remains the same?<br/><br/>If it changes, the consonant(s) right before that syllable change from one column to the other in the same order.");
         $('#stepHelpButton7').html("I'm still not sure");
         $('#stepHelpButton7').attr('name', "status 3");
 
@@ -763,9 +787,19 @@ $('#stepHelpButton7').click(function () {
 
         if (data[index_number].Gradation == "none") {
 
-            $('#stepExplanation7').show();
-            $('#stepExplanation7').html("Ok, so the stem is <i>" + $('#stepAnswer4').html() + "</i> and the stem+ending is *<i>" + $('#stepAnswer4').html().slice(0, -1) + $('#stepAnswer6').html().slice(1) + "</i>.<br/><br/>We cut them in syllables:<br/><br/>" + data[index_number].StemCut + " and " + data[index_number].BeforeGradationCut + "<br/><br/>Then we look at the last syllable from the stem:<br/><br/> " + data[index_number].StemCutUnderlined + " and " + data[index_number].BeforeGradationCutUnderlined + "<br/><br/>The first one is <b>" + data[index_number].StemSyllable + "</b> and is <i>" + data[index_number].StemSyllableStatus + "</i> and the second one is <b>" + data[index_number].BeforeGradationSyllable + "</b> and is <b><i>ALSO</i></b> <i>" + data[index_number].BeforeGradationSyllableStatus + "</i>.<br/><br/>So there is no need for any gradation here since the status of the syllable didn't change.");
-            $('#stepHelpButton7').hide();
+            if (data[index_number].ConsonantGradates == true) {
+
+                $('#stepExplanation7').show();
+                $('#stepExplanation7').html("Ok, so the stem is <i>" + $('#stepAnswer4').html() + "</i> and the stem+ending is *<i>" + $('#stepAnswer4').html().slice(0, -1) + $('#stepAnswer6').html().slice(1) + "</i>.<br/><br/>We cut them in syllables:<br/><br/>" + data[index_number].StemCut + " and " + data[index_number].BeforeGradationCut + "<br/><br/>Then we look at the last syllable from the stem:<br/><br/> " + data[index_number].StemCutUnderlined + " and " + data[index_number].BeforeGradationCutUnderlined + "<br/><br/>The first one is <b>" + data[index_number].StemSyllable + "</b> and is <i>" + data[index_number].StemSyllableStatus + "</i> and the second one is <b>" + data[index_number].BeforeGradationSyllable + "</b> and is <b><i>ALSO</i></b> <i>" + data[index_number].BeforeGradationSyllableStatus + "</i>.<br/><br/>So there is no need for any gradation here since the status of the syllable didn't change.");
+                $('#stepHelpButton7').hide();
+
+            } else {
+
+                $('#stepExplanation7').show();
+                $('#stepExplanation7').html("The consonant placed right before the final syllable of the stem is not listed in the table. So there is no gradation!");
+                $('#stepHelpButton7').hide();
+
+            };
 
 
         } else {
@@ -790,8 +824,9 @@ $('#stepHelpButton7').click(function () {
 
             hideAllTables();
             $('#tableCons').show();
+            $('#tableConsConditions').show();
             $('#stepExplanation7').show();
-            $('#stepExplanation7').html("The table on the right lists the different types of consonant gradation. Doesn't that help you?");
+            $('#stepExplanation7').html("The tables on the right lists the different types of consonant gradation and the conditions for consonant gradation to be possible. Doesn't that help you?");
             $('#stepHelpButton7').attr('name', "status 2");
             $('#stepHelpButton7').html("I need more help!");
 
@@ -997,6 +1032,7 @@ function hideAllTables() {
     $('#tableVocal1').hide();
     $('#tableVocal2').hide();
     $('#tableCaseMeaning').hide();
+    $('#tableConsConditions').hide();
 
 };
 

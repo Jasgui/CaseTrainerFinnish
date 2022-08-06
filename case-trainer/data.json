@@ -17,7 +17,7 @@
             "Reason": "",
             "StemHighlighted": "",
             "EndingsFinal": "-ssa",
-            "Gradation": "pp → p",
+            "Gradation": "pp → p"
     }, {
             "Index": 2,
             "WordFinnishHighlighted": "tunt<b>i</b>",
@@ -35,7 +35,7 @@
             "Reason": "the stem ends in -CV",
             "StemHighlighted": "tun<b>ti<b>-",
             "EndingsFinal": "-a",
-            "Gradation": "none",
+            "Gradation": "none"
     }, {
             "Index": 3,
             "WordFinnishHighlighted": "ve<b>si</b>",
@@ -53,7 +53,7 @@
             "Reason": "",
             "StemHighlighted": "",
             "EndingsFinal": "-stä",
-            "Gradation": "t → d",
+            "Gradation": "t → d"
     }, {
             "Index": 4,
             "WordFinnishHighlighted": "kä<b>si</b>",
@@ -71,7 +71,7 @@
             "Reason": "the stem ends in -C",
             "StemHighlighted": "kä<b>t</b>-",
             "EndingsFinal": "-tä",
-            "Gradation": "none",
+            "Gradation": "none"
     }, {
             "Index": 5,
             "WordFinnishHighlighted": "perh<b>e</b>",
@@ -89,7 +89,7 @@
             "Reason": "",
             "StemHighlighted": "",
             "EndingsFinal": "-llä",
-            "Gradation": "none",
+            "Gradation": "none"
     }, {
             "Index": 6,
             "WordFinnishHighlighted": "tuol<b>i</b>",
@@ -107,7 +107,7 @@
             "Reason": "",
             "StemHighlighted": "",
             "EndingsFinal": "-lla",
-            "Gradation": "none",
+            "Gradation": "none"
     }, {
             "Index": 7,
             "WordFinnishHighlighted": "kirk<b>o</b>",
@@ -125,7 +125,7 @@
             "Reason": "",
             "StemHighlighted": "",
             "EndingsFinal": "-n",
-            "Gradation": "kk → k",
+            "Gradation": "kk → k"
     }
     ]
 }
